@@ -1,76 +1,104 @@
 <template>
-  <div id="app" v-cloak>
-    <Header></Header>
-    <article class="wanna-container">
-      <router-view :key="componentKey" />
-    </article>
-    <Footer></Footer>
-    <BackTop :bottom="50"></BackTop>
-    <Loading v-if="isLoading"></Loading>
+  <div id="app">
+    <header>
+      <h1>Friendship App</h1>
+    </header>
+    <main>
+      <section v-if="!authenticated">
+        <h2>Login to Connect with Friends</h2>
+        <button @click="loginWithGoogle">Login with Google</button>
+      </section>
+      <section v-else>
+        <h2>Welcome, {{ userProfile.name }}!</h2>
+        <!-- Display user information or allow them to upload data -->
+      </section>
+    </main>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex"
-import { mapActions } from "vuex"
-import Header from "@/views/default/Header"
-import Footer from "@/views/default/Footer"
-import Loading from "@/components/Loading"
-
 export default {
-  name: "App",
-  components: {
-    Header,
-    Footer,
-    Loading,
-  },
   data() {
     return {
-      componentKey: 0,
-    }
+      authenticated: false,
+      userProfile: null,
+    };
   },
   methods: {
-    ...mapGetters(["getLoading", "getLanguage"]),
-    ...mapActions(["setSmallDevice"]),
-    reload() {
-      this.componentKey++
-    },
-    windowResizeListener(e) {
-      if (typeof e.target !== "undefined") {
-        this.setSmallDevice(e.target.innerWidth < 992)
+    async loginWithGoogle() {
+      try {
+        await this.initGoogleAuth();
+        const authInstance = gapi.auth2.getAuthInstance();
+
+        // Use the sign in method
+        const googleUser = await authInstance.signIn();
+
+        // Get user profile information
+        const userProfile = googleUser.getBasicProfile();
+        
+        this.authenticated = true;
+        this.userProfile = {
+          id: userProfile.getId(),
+          name: userProfile.getName(),
+          email: userProfile.getEmail(),
+          imageUrl: userProfile.getImageUrl(),
+        };
+
+        // You can now perform additional actions, like sending the user profile to your server.
+      } catch (error) {
+        console.error('Error during Google login:', error);
       }
     },
-  },
-  computed: {
-    isLoading() {
-      return this.getLoading()
+    async initGoogleAuth() {
+      return new Promise((resolve, reject) => {
+        gapi.load('auth2', async () => {
+          try {
+            await gapi.auth2.init({
+              client_id: 'YOUR_CLIENT_ID', // Replace with your actual client ID
+            });
+            resolve();
+          } catch (error) {
+            reject(error);
+          }
+        });
+      });
     },
   },
-  provide() {
-    return {
-      reload: this.reload,
-    }
-  },
-  created() {
-    window.addEventListener("resize", this.windowResizeListener)
-    this.setSmallDevice(window.innerWidth < 992)
-  },
-  mounted() {
-    this.windowResizeListener(this)
-  },
-  destroyed() {
-    window.removeEventListener("resize", this.windowResizeListener)
-  },
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  /* color: #2c3e50; */
-  margin-top: 64px;
-}
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  #app {
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  header {
+    background-color: #3498db;
+    padding: 20px;
+    color: white;
+  }
+
+  main {
+    margin: 20px;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #27ae60;
+  }
 </style>
