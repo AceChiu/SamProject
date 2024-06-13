@@ -1,7 +1,7 @@
 <template>
   <div class="default-header">
     <div class="default-header__left">
-      <el-icon
+      <!-- <el-icon
         v-show="!baseStore.menuOpen"
         class="default-header__hamburger"
         @click="changeCollapseStatus(true)"
@@ -14,7 +14,7 @@
         @click="changeCollapseStatus(false)"
         size="30px"
         ><Fold
-      /></el-icon>
+      /></el-icon> -->
       <a
         class="default-header__left-title default-header__center-title"
         @click="$router.push({ name: 'home' })"
@@ -33,14 +33,14 @@
 <script setup lang="ts">
 // import DropdownLocal from '~/components/layouts/DropdownLocal.vue'
 import DropdownUser from '~/components/layouts/DropdownUser.vue'
-import { Expand, Fold } from '@element-plus/icons-vue'
-import { base } from '../../store/base'
-
-const baseStore = base()
-
-function changeCollapseStatus(bool: boolean) {
-  baseStore.menuOpen = bool
-}
+// import { Expand, Fold } from '@element-plus/icons-vue'
+// import { base } from '../../store/base'
+// 
+// const baseStore = base()
+// 
+// function changeCollapseStatus(bool: boolean) {
+//   baseStore.menuOpen = bool
+// }
 </script>
 <style lang="scss" scoped>
 .default-header {
