@@ -25,13 +25,13 @@
     </div>
 
     <div class="default-header__right">
-      <DropdownLocal></DropdownLocal>
+      <!-- <DropdownLocal></DropdownLocal> -->
       <DropdownUser></DropdownUser>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import DropdownLocal from '~/components/layouts/DropdownLocal.vue'
+// import DropdownLocal from '~/components/layouts/DropdownLocal.vue'
 import DropdownUser from '~/components/layouts/DropdownUser.vue'
 import { Expand, Fold } from '@element-plus/icons-vue'
 import { base } from '../../store/base'
@@ -66,7 +66,6 @@ function changeCollapseStatus(bool: boolean) {
     font-size: 16px;
     font-weight: 600;
     text-decoration: none;
-    margin-top: 15px;
     white-space: nowrap;
     cursor: pointer;
   }

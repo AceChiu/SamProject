@@ -18,8 +18,12 @@ const baseI = base(pinia)
 // const $route = useRoute()
 const routes: RouteRecordRaw[] = [
   { path: '/', redirect: '/home' },
-  { path: '/home', name: 'home', component: () => import('../views/Home.vue') },
-  { path: '/info', name: 'in-fo', component: () => import('../views/Info.vue') },
+  { path: '/home', 
+    name: 'home', 
+    component: () => import('../views/Home.vue') },
+  { path: '/info', 
+    name: 'in-fo', 
+    component: () => import('../views/Info.vue') },
   {
     path: '/demo1/tableDemo',
     name: 'DEMO1_TABLEDEMO',
