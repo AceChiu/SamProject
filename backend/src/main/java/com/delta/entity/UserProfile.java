@@ -48,6 +48,11 @@ public class UserProfile extends BaseEntity {
   @Setter
   @ApiModelProperty(value = "名子")
   private String givenName;
+
+  @Getter
+  @Setter
+  @ApiModelProperty(value = "全名")
+  private String name;
   
   @Getter
   @Setter

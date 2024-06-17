@@ -9,7 +9,6 @@ import com.delta.dto.UserProfileDto;
 import com.delta.entity.UserProfile;
 import com.delta.repository.BasicJpaRepository;
 import com.delta.repository.UserProfileRepository;
-import com.delta.request.GoogleUserPerfileResponse;
 
 /**
  * @author: ACE.CHIU
@@ -21,21 +20,12 @@ public class UserProfileService extends BasicService<UserProfile> {
 
   @Autowired
   private UserProfileRepository repository;
-  
-  public UserProfile create(GoogleUserPerfileResponse response) {
-    UserProfile userProfile = repository.findByGoogleId(response.getId()).orElse(new UserProfile());
-    userProfile.setGoogleId(response.getId());
-    userProfile.setGivenName(response.getGiven_name());
-    userProfile.setFamilyName(response.getFamily_name());
-    return repository.save(userProfile);
-  }
 
   public UserProfile create(UserProfileDto dto) {
     UserProfile userProfile = new UserProfile();
-    userProfile.setGoogleId(dto.getGoogleId());
     userProfile.setFamilyName(dto.getFamilyName());
     userProfile.setGivenName(dto.getGivenName());
-    userProfile.setBirthday(dto.getBirthday());
+    userProfile.setName(dto.getName());
     userProfile.setEmail(dto.getEmail());
     return repository.save(userProfile);
   }
@@ -51,11 +41,6 @@ public class UserProfileService extends BasicService<UserProfile> {
   public Optional<UserProfile> findByEmail(String email) {
     return repository.findByEmail(email);
   }
-
-  public  Optional<UserProfile> findByGoogleId(String googleId) {
-    return repository.findByGoogleId(googleId);
-  }
-
   @Override
   public BasicJpaRepository<UserProfile> getRepository() {
     return repository;

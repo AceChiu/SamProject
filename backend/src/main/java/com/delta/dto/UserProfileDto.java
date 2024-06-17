@@ -11,11 +11,11 @@ import lombok.Setter;
 @Setter
 public class UserProfileDto {
   
-  private String googleId;
-  
   private String familyName;
 
   private String givenName;
+
+  private String name;
   
   private String birthday;
   

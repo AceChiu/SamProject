@@ -29,15 +29,9 @@ public class UserProfileController {
   private UserProfileService userProfileService;
   
   @ApiOperation(value = "新增一個 User")
-  @GetMapping(value = ResourcePaths.USER_PROFILE + "/create")
+  @PostMapping(value = ResourcePaths.USER_PROFILE + "/create")
   public UserProfile create(@RequestBody UserProfileDto userProfileDto) {
     return userProfileService.create(userProfileDto);
-  }
-  
-  @ApiOperation(value = "根據 groupId 搜尋使用者")
-  @GetMapping(value = ResourcePaths.USER_PROFILE + "/find/goolgeId/{googleId}")
-  public UserProfile findByGooldId(@ApiParam(value = "googleId") @PathVariable String googleId) {
-    return userProfileService.findByGoogleId(googleId).orElse(null);
   }
   
   @ApiOperation(value = "根據 email 搜尋使用者")
