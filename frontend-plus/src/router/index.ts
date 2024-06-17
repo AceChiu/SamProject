@@ -107,7 +107,6 @@ router.beforeEach((to, from, next) => {
   //       'loginAuthCount',
   //       `${Number(localStorage.getItem('loginAuthCount') ?? 0) + 1}`
   //     )
-  //     let authnURL = import.meta.env.VITE_APP_AUTH_URL
   //     let frontURL = import.meta.env.VITE_APP_FRONTEND_URL
 
   //     if (!ValidateDeltaDomain(authnURL)) {

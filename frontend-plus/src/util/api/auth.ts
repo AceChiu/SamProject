@@ -1,14 +1,19 @@
 import { authAxiosInstance } from '../axiosInstance'
-const url = '/auth/'
+import { IUser } from '../interface/user'
+const url = '/user-profile/'
 
-export const getCurrentUser = () => {
-  return authAxiosInstance.get(`${url}` + 'current-user')
+export const getCurrentUser = (email: string) => {
+  return authAxiosInstance.get(`${url}` + 'find/email/' + email)
 }
-export const putSwitchUser = (username: string) => {
-  return authAxiosInstance.put(
-    `${url}` + 'switch-user',
+
+export const postCreateUser = (user: IUser) => {
+  return authAxiosInstance.post(
+    `${url}` + 'create',
     JSON.stringify({
-      username: username
+      "email": user.email,
+      "familyName": user.familyName,
+      "givenName": user.givenName,
+      "name": user.name
     })
   )
 }
