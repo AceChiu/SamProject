@@ -1,4 +1,4 @@
-package com.delta.dto;
+package com.ace.dto;
 
 import lombok.Getter;
 import lombok.Setter;

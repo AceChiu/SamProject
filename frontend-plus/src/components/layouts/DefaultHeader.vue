@@ -19,8 +19,8 @@
         class="default-header__left-title default-header__center-title"
         @click="$router.push({ name: 'home' })"
       >
-        <!-- <img class="default-header__logo" src="../../assets/logo_w.svg" /> -->
-        <span class="default-header__title">想學教育</span>
+        <!-- <img class="default-header__logo" src="../../assets/logo.jpg"/> -->
+        <!-- <span class="default-header__title">想學教育</span> -->
       </a>
     </div>
 

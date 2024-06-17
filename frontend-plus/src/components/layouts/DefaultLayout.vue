@@ -30,10 +30,10 @@ import DefaultHeader from './DefaultHeader.vue'
 </script>
 <style lang="scss" scoped>
 .layout {
-  height: 100vh;
+  height: 200vh;
 }
 .layout-container {
-  height: 100vh;
+  height: 200vh;
   &__main {
     overflow-y: auto;
   }
@@ -51,7 +51,10 @@ import DefaultHeader from './DefaultHeader.vue'
   color: #fff;
 }
 .main {
-  background-color: $delta-light-gray;
+  // background-color: black;
+  background-image:url('../../assets/logo.jpg');
+  background-size: cover;
+  opacity: 0.6;
   padding: 32px 24px;
 }
 .footer {

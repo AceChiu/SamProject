@@ -1,14 +1,13 @@
-package com.delta.service;
+package com.ace.service;
 
-import java.util.Optional;
-
+import com.ace.dto.UserProfileDto;
+import com.ace.entity.UserProfile;
+import com.ace.repository.BasicJpaRepository;
+import com.ace.repository.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.delta.dto.UserProfileDto;
-import com.delta.entity.UserProfile;
-import com.delta.repository.BasicJpaRepository;
-import com.delta.repository.UserProfileRepository;
+import java.util.Optional;
 
 /**
  * @author: ACE.CHIU
@@ -33,7 +32,7 @@ public class UserProfileService extends BasicService<UserProfile> {
   public UserProfile update(UserProfileDto userProfileDto) {
     UserProfile userProfile = repository.findByEmail(userProfileDto.getEmail())
         .orElse(new UserProfile());
-    userProfile.setBirthday(userProfileDto.getBirthday());;
+    userProfile.setBirthday(userProfileDto.getBirthday());
     return repository.save(userProfile);
 
   }
