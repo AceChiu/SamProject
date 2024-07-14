@@ -1,5 +1,6 @@
 package com.ace.dto;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,8 +8,7 @@ import lombok.Setter;
  * @author: ACE.CHIU
  * @create: 2023-03-23
  */
-@Getter
-@Setter
+@Data
 public class TeacherDto {
 
   private String imgUrl;

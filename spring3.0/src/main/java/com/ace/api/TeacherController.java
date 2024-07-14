@@ -7,6 +7,7 @@ import com.ace.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -15,17 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
+@RequestMapping("/api/" + ResourcePaths.TEACHER)
 public class TeacherController {
   
   @Autowired
   private TeacherService teacherService;
 
-  @PostMapping(value = ResourcePaths.TEACHER + "/create")
+  @PostMapping(value = "/create")
   public Teacher create(@RequestBody TeacherDtoRequest request) {
     return teacherService.create(request);
   }
 
-  @PostMapping(value = ResourcePaths.TEACHER + "/update")
+  @PostMapping(value = "/update")
   public Teacher update(@RequestBody TeacherDtoRequest request) {
     return teacherService.update(request);
   }

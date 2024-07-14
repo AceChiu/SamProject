@@ -1,16 +1,8 @@
-export interface IUser {
-    // id: number,
-    // uuid: String,
-    // updateCount: number,
-    // created: Date,
-    // lastModified: Date,
-    // createdBy: String,
-    // lastModifiedBy: String,
-    familyName: String,
-    givenName: String,
-    name: String,
-    // birthday: Date,
-    email: String,
-    // phone: String,
-    // address: String
+interface user {
+    email: string,
+    name: string,
+    familyName: string,
+    givenName: string,
+    googleId: string
 }
+export default user

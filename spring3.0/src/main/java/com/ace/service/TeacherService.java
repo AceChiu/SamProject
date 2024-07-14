@@ -31,12 +31,9 @@ public class TeacherService extends BasicService<Teacher> {
   }
   
   public Teacher create(TeacherDtoRequest request) {
-    Optional<UserProfile> userProfileOpt = userProfileService.findByEmail(request.getEmail());
-    if (!userProfileOpt.isPresent()) {
-      throw new SystemDataExistsException("E-mail Could not Find");
-    } 
+    UserProfile userProfile = userProfileService.findByEmail(request.getEmail());
     Teacher teacher = new Teacher();
-    teacher.setUserProfile(userProfileOpt.get());
+    teacher.setUserProfile(userProfile);
     teacher.setImgUrl(request.getImgUrl());
     return repository.save(teacher);
   }
