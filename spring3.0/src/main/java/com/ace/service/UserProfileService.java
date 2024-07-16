@@ -26,6 +26,8 @@ public class UserProfileService extends BasicService<UserProfile> {
 
   public UserProfile create(UserProfileDto dto) {
     UserProfile userProfile = new UserProfile();
+    userProfile.setUsername(dto.getUsername());
+    userProfile.setPassword(passwordEncoder.encode(dto.getPassword()));
     userProfile.setGoogleId(dto.getGoogleId());
     userProfile.setEncodeGoogleId(passwordEncoder.encode(dto.getGoogleId()));
     userProfile.setFamilyName(dto.getFamilyName());

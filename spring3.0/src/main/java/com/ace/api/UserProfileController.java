@@ -25,9 +25,10 @@ public class UserProfileController {
 //    public UserProfileDto create(@RequestBody UserProfileDto userProfileDto) {
 //        UserProfile userProfile = userProfileService.create(userProfileDto);
 //        return UserProfileDto.builder()
+//                .username(userProfile.getUsername())
+//                .googleId(userProfile.getGoogleId())
 //                .email(userProfile.getEmail())
 //                .name(userProfile.getName())
-//                .googleId(userProfile.getGoogleId())
 //                .familyName(userProfile.getFamilyName())
 //                .givenName(userProfile.getGivenName())
 //                .build();
@@ -37,7 +38,7 @@ public class UserProfileController {
     public UserProfileDto findByEmail(@PathVariable String email) {
         UserProfile userProfile = userProfileService.findByEmail(email);
         if (Objects.nonNull(userProfile)) {
-            return UserProfileDto.builder()
+            return UserProfileDto.builder().username(userProfile.getUsername())
                 .email(userProfile.getEmail())
                 .name(userProfile.getName())
                 .build();
@@ -50,6 +51,7 @@ public class UserProfileController {
     public UserProfileDto update(@RequestBody UserProfileDto userProfileDto) {
         UserProfile userProfile = userProfileService.update(userProfileDto);
         return UserProfileDto.builder()
+                .username(userProfile.getUsername())
                 .email(userProfile.getEmail())
                 .name(userProfile.getName())
                 .googleId(userProfile.getGoogleId())

@@ -11,6 +11,7 @@ import java.util.Optional;
  */
 @Repository
 public interface UserProfileRepository extends BasicJpaRepository<UserProfile> {
+  Optional<UserProfile> findByUsername(String username);
   Optional<UserProfile> findByEmail(String email);
   Optional<UserProfile> findByGoogleId(String googleId);
 }

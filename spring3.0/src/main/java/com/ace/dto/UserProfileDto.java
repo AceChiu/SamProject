@@ -12,20 +12,14 @@ import lombok.Setter;
 @Data
 @Builder
 public class UserProfileDto {
-
+    private String username;
+    private String password;
     private String googleId;
-
     private String email;
-
     private String familyName;
-
     private String givenName;
-
     private String name;
-
     private String birthday;
-
     private String phone;
-
     private String address;
 }

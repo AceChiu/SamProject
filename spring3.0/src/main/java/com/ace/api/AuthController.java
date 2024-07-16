@@ -1,11 +1,12 @@
 package com.ace.api;
 
 import com.ace.common.ResourcePaths;
-import com.ace.config.SecurityConfig;
+import com.ace.dto.AuthResponseDto;
 import com.ace.dto.LoginDto;
 import com.ace.dto.UserProfileDto;
 import com.ace.entity.UserProfile;
 import com.ace.repository.RoleRepository;
+import com.ace.security.JWTGenerator;
 import com.ace.service.UserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,22 +30,26 @@ public class AuthController {
     private UserProfileService userProfileService;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private JWTGenerator jwtGenerator;
 
     @PostMapping(value = "/login")
-    public ResponseEntity<String> login(@RequestBody LoginDto loginDto) {
+    public ResponseEntity<AuthResponseDto> login(@RequestBody LoginDto loginDto) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getGoogleId()));
+                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new ResponseEntity<>("Success Login", HttpStatus.OK);
+        String token =  jwtGenerator.generateToken(authentication);
+        return new ResponseEntity<>(new AuthResponseDto(token), HttpStatus.OK);
     }
 
     @PostMapping(value = "/register")
     public UserProfileDto create(@RequestBody UserProfileDto userProfileDto) {
         UserProfile userProfile = userProfileService.create(userProfileDto);
         return UserProfileDto.builder()
+                .username(userProfile.getUsername())
                 .email(userProfile.getEmail())
-                .name(userProfile.getName())
                 .googleId(userProfile.getGoogleId())
+                .name(userProfile.getName())
                 .familyName(userProfile.getFamilyName())
                 .givenName(userProfile.getGivenName())
                 .build();
