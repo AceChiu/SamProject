@@ -1,5 +1,7 @@
-package com.ace.security;
+package com.ace.config;
 
+import com.ace.security.JWTAuthEntryPoint;
+import com.ace.security.JWTAuthenticationFilter;
 import com.ace.service.CustomUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,19 +35,24 @@ public class SecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    private static final String[] AUTH_WHITELIST = {
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/api/auth/**",
+            "/api/test/**",
+    };
+
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.csrf(c -> c.disable())
-                .authorizeHttpRequests(request -> request.requestMatchers(
-                    "/v3/api-docs/**",
-                    "/swagger-ui/**",
-                    "/swagger-ui.html").permitAll()
+                .authorizeHttpRequests(request -> request.requestMatchers(AUTH_WHITELIST).permitAll()
 //                .requestMatchers("/api/user-profile/**").permitAll()
-            .anyRequest()
-            .authenticated());
+                        .anyRequest()
+                        .authenticated());
         http.exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(jwtAuthEntryPoint));
         http.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+//        http.headers(headers -> headers.frameOptions(frameOption -> frameOption.sameOrigin()));
         return http.build();
     }
 
@@ -54,10 +61,10 @@ public class SecurityConfig {
         return (web) -> web.ignoring().requestMatchers("/api/auth/**");
     }
 
-	@Bean
-	public PasswordEncoder getPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public JWTAuthenticationFilter jwtAuthenticationFilter() {

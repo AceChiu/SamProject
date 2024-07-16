@@ -21,19 +21,6 @@ public class UserProfileController {
     @Autowired
     private UserProfileService userProfileService;
 
-//    @PostMapping(value = "/create")
-//    public UserProfileDto create(@RequestBody UserProfileDto userProfileDto) {
-//        UserProfile userProfile = userProfileService.create(userProfileDto);
-//        return UserProfileDto.builder()
-//                .username(userProfile.getUsername())
-//                .googleId(userProfile.getGoogleId())
-//                .email(userProfile.getEmail())
-//                .name(userProfile.getName())
-//                .familyName(userProfile.getFamilyName())
-//                .givenName(userProfile.getGivenName())
-//                .build();
-//    }
-
     @GetMapping(value = "/find/email/{email}")
     public UserProfileDto findByEmail(@PathVariable String email) {
         UserProfile userProfile = userProfileService.findByEmail(email);
