@@ -24,7 +24,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserProfile userProfile = userProfileRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Google Authentication Error"));
+        UserProfile userProfile = userProfileRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Authentication Error"));
         return new User(userProfile.getUsername(), userProfile.getPassword(), mapRolesToAuthorities(userProfile.getRoles()));
     }
 

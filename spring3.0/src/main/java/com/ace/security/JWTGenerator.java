@@ -22,14 +22,14 @@ public class JWTGenerator {
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(expireDate)
-                .signWith(SignatureAlgorithm.HS256, Decoders.BASE64.decode(SeurityContant.JWE_SECRIT))
+                .signWith(SignatureAlgorithm.HS256, Decoders.BASE64.decode(SeurityContant.JWE_SECRET))
                 .compact();
         return token;
     }
 
     public String getUsernameFromJWT(String token) {
         Claims claims = Jwts.parser()
-                .setSigningKey(SeurityContant.JWE_SECRIT)
+                .setSigningKey(SeurityContant.JWE_SECRET)
                 .parseClaimsJws(token)
                 .getBody();
         return claims.getSubject();
@@ -38,7 +38,7 @@ public class JWTGenerator {
     public boolean validateToken(String token) {
         try {
             Jwts.parser()
-                    .setSigningKey(SeurityContant.JWE_SECRIT)
+                    .setSigningKey(SeurityContant.JWE_SECRET)
                     .parseClaimsJws(token);
             return true;
         } catch (Exception ex) {
