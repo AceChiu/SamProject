@@ -5,7 +5,7 @@ package com.ace.exception;
  * @create: 2022-06-30
  */
 
-public class SystemDataExistsException extends AbstractDeltaException {
+public class SystemDataExistsException extends AbstractException {
   private static final long serialVersionUID = -5375236475871460303L;
   public static final String ERROR_CODE = "20101";
 

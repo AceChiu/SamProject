@@ -1,20 +1,33 @@
 import { authAxiosInstance } from '../axiosInstance'
+import login from '../interface/login'
 import user from '../interface/user'
-const url = 'api/user-profile/'
+const url = 'api/auth/'
 
-export const getCurrentUser = (email: string) => {
-  return authAxiosInstance.get(`${url}` + 'find/email/' + email)
+export const getIsExistedUser = (username: string) => {
+    return authAxiosInstance.get(`${url}` + 'isExistUser/' + username)
+  }
+
+export const postLogin = (login: login) => {
+    return authAxiosInstance.post(
+        `${url}` + 'login',
+        JSON.stringify({
+          "username": login.username,
+          "password": login.password
+        })
+      )
 }
 
-export const postCreateUser = (user: user) => {
+export const postRegister = (user: user) => {
   return authAxiosInstance.post(
     `${url}` + 'create',
     JSON.stringify({
-      "email": user.email,
-      "familyName": user.familyName,
-      "givenName": user.givenName,
-      "name": user.name,
-      "googleId": user.googleId
+        "username": user.username,
+        "password": user.password,
+        "googleId": user.googleId,
+        "email": user.email,
+        "familyName": user.familyName,
+        "givenName": user.givenName,
+        "name": user.name,
     })
   )
 }
