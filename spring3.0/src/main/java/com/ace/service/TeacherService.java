@@ -3,7 +3,7 @@ package com.ace.service;
 
 import com.ace.entity.Teacher;
 import com.ace.entity.UserProfile;
-import com.ace.exception.SystemDataExistsException;
+import com.ace.exception.BusinessException;
 import com.ace.repository.BasicJpaRepository;
 import com.ace.repository.TeacherRepository;
 import com.ace.request.TeacherDtoRequest;
@@ -41,7 +41,7 @@ public class TeacherService extends BasicService<Teacher> {
   public Teacher update(TeacherDtoRequest request) {
     Optional<Teacher> teacherOpt = repository.findByUuid(request.getUuid());
     if (!teacherOpt.isPresent()) {
-      throw new SystemDataExistsException("Teacher Could not Find");
+      throw new BusinessException("Teacher Could not Find");
     } 
     Teacher teacher = teacherOpt.get();
     teacher.setImgUrl(request.getImgUrl());

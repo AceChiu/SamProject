@@ -19,12 +19,12 @@ export const postLogin = (login: login) => {
 
 export const postRegister = (user: user) => {
   return authAxiosInstance.post(
-    `${url}` + 'create',
+    `${url}` + 'register',
     JSON.stringify({
         "username": user.username,
         "password": user.password,
-        "googleId": user.googleId,
         "email": user.email,
+        "googleId": user.googleId,
         "familyName": user.familyName,
         "givenName": user.givenName,
         "name": user.name,

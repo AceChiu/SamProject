@@ -4,27 +4,27 @@ package com.ace.exception;
  * @author: ACE.CHIU
  * @create: 2022-06-30
  */
-public abstract class AbstractDeltaException extends RuntimeException {
+public abstract class AbstractException extends RuntimeException {
 
   private static final long serialVersionUID = -1704508525572788612L;
 
-  public AbstractDeltaException() {
+  public AbstractException() {
     super();
   }
 
-  public AbstractDeltaException(String message) {
+  public AbstractException(String message) {
     super(message);
   }
 
-  public AbstractDeltaException(String message, Throwable cause) {
+  public AbstractException(String message, Throwable cause) {
     super(message, cause);
   }
 
-  public AbstractDeltaException(Throwable cause) {
+  public AbstractException(Throwable cause) {
     super(cause);
   }
 
-  public AbstractDeltaException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+  public AbstractException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
     super(message, cause, enableSuppression, writableStackTrace);
   }
 

@@ -2,6 +2,7 @@ package com.ace.service;
 
 import com.ace.dto.UserProfileDto;
 import com.ace.entity.UserProfile;
+import com.ace.exception.BusinessException;
 import com.ace.repository.BasicJpaRepository;
 import com.ace.repository.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,22 +29,20 @@ public class UserProfileService extends BasicService<UserProfile> {
     UserProfile userProfile = new UserProfile();
     userProfile.setUsername(dto.getUsername());
     userProfile.setPassword(passwordEncoder.encode(dto.getPassword()));
+    userProfile.setEmail(dto.getEmail());
     userProfile.setGoogleId(dto.getGoogleId());
     userProfile.setFamilyName(dto.getFamilyName());
     userProfile.setGivenName(dto.getGivenName());
     userProfile.setName(dto.getName());
-    userProfile.setEmail(dto.getEmail());
     return repository.save(userProfile);
   }
   
   public UserProfile update(UserProfileDto userProfileDto) {
-    UserProfile userProfile = repository.findByEmail(userProfileDto.getEmail())
-        .orElse(new UserProfile());
+    UserProfile userProfile = repository.findById(userProfileDto.getId()).orElseThrow();
     userProfile.setBirthday(userProfileDto.getBirthday());
     userProfile.setAddress(userProfileDto.getAddress());
     userProfile.setPhone(userProfileDto.getPhone());
     return repository.save(userProfile);
-
   }
 
   public UserProfile findByEmail(String email) {

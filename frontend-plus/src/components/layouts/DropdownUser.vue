@@ -7,43 +7,62 @@
 <script lang="ts" setup>
 import pinia from '../../store/store'
 import user from '../../util/interface/user'
+import login from '../../util/interface/login'
 import { base } from '../../store/base'
 import { computed, ref, onMounted } from 'vue'
 import { decodeCredential } from "vue3-google-login"
-import { getCurrentUser, postCreateUser } from '../../util/api/auth'
-import { ElMessage } from 'element-plus'
+import { getIsExistedUser, postRegister, postLogin } from '../../util/api/auth'
+// import { ElMessage } from 'element-plus'
 const baseI = base(pinia)
 const windowWidth = ref(0)
-const userDetial = ref<user>({
-    email: "",
-    name: "",
-    familyName: "",
-    givenName: "",
-    googleId: ""
-});
 
+const loginDetail = ref<login>({
+  username: "",
+  password: ""
+})
+
+const userDetial = ref<user>({
+  id: 0,
+  username: "",
+  password: "",
+  email: "",
+  googleId: "",
+  name: "",
+  familyName: "",
+  givenName: "",
+  birthday: new Date(),
+  phone: "",
+  address: ""
+})
 
 const callback = (response: any) => {
   const googleUser = decodeCredential(response.credential)
-  userDetial.value.email = googleUser.email
-  userDetial.value.name = googleUser.given_name
-  userDetial.value.familyName = googleUser.family_name
-  userDetial.value.givenName = googleUser.given_name
-  userDetial.value.googleId = googleUser.sub
-  console.log(googleUser)
-  getCurrentUser(userDetial.value.email)
+  loginDetail.value.username = googleUser.email
+  loginDetail.value.password = googleUser.sub
+  getIsExistedUser(loginDetail.value.username)
     .then((response: any) => {
-      console.log(response);
-      if (response.data == "") {
-        // console.log(data)
-        postCreateUser(userDetial.value)
+      if (response.data) {
+        postLogin(loginDetail.value).then((response: any) => {
+          console.log(response.data);
+        }) 
+      } else {
+        userDetial.value.username = googleUser.email
+        userDetial.value.password = googleUser.sub
+        userDetial.value.email = googleUser.email
+        userDetial.value.googleId = googleUser.sub
+        userDetial.value.name = googleUser.name
+        userDetial.value.familyName = googleUser.familyName
+        userDetial.value.givenName = googleUser.givenName
+        postRegister(userDetial.value).then((response: any) => {
+          console.log(response.data)
+          postLogin(loginDetail.value).then((response: any) => {
+            console.log(response.data)
+          }) 
+        }) 
       }
     })
     .catch((error: any) => {
-      ElMessage.error({
-        message: error,
-        duration: 5000
-      })
+      console.log(error)
     })
     .finally(() => {
       baseI.loading = false
@@ -65,4 +84,3 @@ onMounted(() => {
   cursor: pointer;
 }
 </style>
-../../util/interface/user

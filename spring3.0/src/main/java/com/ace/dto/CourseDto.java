@@ -12,14 +12,10 @@ import java.time.LocalDateTime;
  */
 @Data
 public class CourseDto {
-  
+  private long id;
   private String imgUrl;
-  
   private String content;
-  
   private LocalDateTime time;
-  
   private int studentLimit;
-  
   private String address;
 }

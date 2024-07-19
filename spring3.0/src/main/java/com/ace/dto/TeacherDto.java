@@ -10,10 +10,8 @@ import lombok.Setter;
  */
 @Data
 public class TeacherDto {
-
+  private long id;
   private String imgUrl;
-  
   private String skill;
-  
   private String experience;
 }
