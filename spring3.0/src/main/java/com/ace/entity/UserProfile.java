@@ -25,17 +25,19 @@ public class UserProfile extends BaseEntity {
     private String username;
     private String password;
 
-    private String encodeGoogleId;
+    private String email;
     private String googleId;
     private String lindId;
     private String igId;
+
+    private String name;
     private String familyName;
     private String givenName;
-    private String name;
+
     private String birthday;
-    private String email;
     private String phone;
     private String address;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = Student_.USER_PROFILE)
     private Student student;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = Teacher_.USER_PROFILE)

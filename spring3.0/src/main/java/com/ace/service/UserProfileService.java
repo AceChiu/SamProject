@@ -29,7 +29,6 @@ public class UserProfileService extends BasicService<UserProfile> {
     userProfile.setUsername(dto.getUsername());
     userProfile.setPassword(passwordEncoder.encode(dto.getPassword()));
     userProfile.setGoogleId(dto.getGoogleId());
-    userProfile.setEncodeGoogleId(passwordEncoder.encode(dto.getGoogleId()));
     userProfile.setFamilyName(dto.getFamilyName());
     userProfile.setGivenName(dto.getGivenName());
     userProfile.setName(dto.getName());
@@ -49,6 +48,10 @@ public class UserProfileService extends BasicService<UserProfile> {
 
   public UserProfile findByEmail(String email) {
     return repository.findByEmail(email).orElse(null);
+  }
+
+  public UserProfile findByUsername(String username) {
+    return repository.findByUsername(username).orElse(null);
   }
   @Override
   public BasicJpaRepository<UserProfile> getRepository() {

@@ -14,11 +14,13 @@ import lombok.Setter;
 public class UserProfileDto {
     private String username;
     private String password;
-    private String googleId;
+    
     private String email;
+    private String googleId;
+    private String name;
     private String familyName;
     private String givenName;
-    private String name;
+
     private String birthday;
     private String phone;
     private String address;

@@ -37,6 +37,8 @@ const callback = (response: any) => {
       if (response.data == "") {
         // console.log(data)
         postCreateUser(userDetial.value)
+      } else {
+        postCreateUser(userDetial.value)
       }
     })
     .catch((error: any) => {

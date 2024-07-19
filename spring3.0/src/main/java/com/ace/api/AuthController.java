@@ -15,10 +15,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/" + ResourcePaths.AUTH)
@@ -33,12 +32,22 @@ public class AuthController {
     @Autowired
     private JWTGenerator jwtGenerator;
 
+    @GetMapping(value = "/isExistUser/{username}")
+    public boolean isExistedUser(@PathVariable String username) {
+        UserProfile userProfile = userProfileService.findByUsername(username);
+        if (Objects.nonNull(userProfile)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @PostMapping(value = "/login")
     public ResponseEntity<AuthResponseDto> login(@RequestBody LoginDto loginDto) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token =  jwtGenerator.generateToken(authentication);
+        String token = jwtGenerator.generateToken(authentication);
         return new ResponseEntity<>(new AuthResponseDto(token), HttpStatus.OK);
     }
 
@@ -48,7 +57,6 @@ public class AuthController {
         return UserProfileDto.builder()
                 .username(userProfile.getUsername())
                 .email(userProfile.getEmail())
-                .googleId(userProfile.getGoogleId())
                 .name(userProfile.getName())
                 .familyName(userProfile.getFamilyName())
                 .givenName(userProfile.getGivenName())
