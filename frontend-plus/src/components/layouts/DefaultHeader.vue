@@ -35,9 +35,9 @@
 import DropdownUser from '~/components/layouts/DropdownUser.vue'
 // import { Expand, Fold } from '@element-plus/icons-vue'
 // import { base } from '../../store/base'
-// 
+//
 // const baseStore = base()
-// 
+//
 // function changeCollapseStatus(bool: boolean) {
 //   baseStore.menuOpen = bool
 // }

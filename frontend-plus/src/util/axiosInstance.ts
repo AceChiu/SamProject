@@ -18,7 +18,7 @@ const axiosInstance = (
       // config.headers['Accept-Language'] = store.getters.getLanguage
       if (Cookies.get(import.meta.env.VITE_APP_AUTH_TOKEN_NAME)) {
         config.headers.Authorization =
-        'Bearer ' + Cookies.get(import.meta.env.VITE_APP_AUTH_TOKEN_NAME)
+          'Bearer ' + Cookies.get(import.meta.env.VITE_APP_AUTH_TOKEN_NAME)
       }
       config.headers['Content-Type'] = 'application/json'
       // store.commit(types.LOADING, true)
