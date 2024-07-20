@@ -1,6 +1,6 @@
 <template>
   <span class="username" v-if="isDesktop && isLogin">
-    {{ userDetial.name }}
+    {{ currentUser.name }}
   </span>
   <GoogleLogin :callback="callback" v-if="isDesktop && !isLogin" prompt/>
 </template>
@@ -8,11 +8,13 @@
 import pinia from '../../store/store'
 import user from '../../util/interface/user'
 import login from '../../util/interface/login'
+import Cookies from 'js-cookie'
 import { base } from '../../store/base'
 import { computed, ref, onMounted } from 'vue'
 import { decodeCredential } from "vue3-google-login"
 import { getIsExistedUser, postRegister, postLogin } from '../../util/api/auth'
-// import { ElMessage } from 'element-plus'
+import { getCurrentUser } from '../../util/api/user-profile'
+import { ElMessage } from 'element-plus'
 const baseI = base(pinia)
 const windowWidth = ref(0)
 
@@ -42,9 +44,7 @@ const callback = (response: any) => {
   getIsExistedUser(loginDetail.value.username)
     .then((response: any) => {
       if (response.data) {
-        postLogin(loginDetail.value).then((response: any) => {
-          console.log(response.data);
-        }) 
+        loginAction(loginDetail.value)
       } else {
         userDetial.value.username = googleUser.email
         userDetial.value.password = googleUser.sub
@@ -54,10 +54,9 @@ const callback = (response: any) => {
         userDetial.value.familyName = googleUser.familyName
         userDetial.value.givenName = googleUser.givenName
         postRegister(userDetial.value).then((response: any) => {
-          console.log(response.data)
-          postLogin(loginDetail.value).then((response: any) => {
-            console.log(response.data)
-          }) 
+          if (response.data) {
+            loginAction(loginDetail.value)
+          }
         }) 
       }
     })
@@ -68,7 +67,33 @@ const callback = (response: any) => {
       baseI.loading = false
     })
 }
-const isLogin = computed(() => userDetial.value.googleId == "" ? false : true)
+
+const loginAction = (loginDetail: login) => {
+  postLogin(loginDetail).then((response: any) => {
+    Cookies.set(import.meta.env.VITE_APP_AUTH_TOKEN_NAME, response.data.token,  {
+      expires: 1000 * 60 * 60 * 6
+    })
+            
+    getCurrentUser()
+      .then((response: any) => {
+        console.log(response.data)
+        baseI.setUser(response.data)
+      })
+      .catch((error: any) => {
+        console.log(error)
+        ElMessage.error({
+          message: error,
+          duration: 5000
+        })
+      })
+      .finally(() => {
+        baseI.loading = false
+      })
+  })
+}
+
+const isLogin = computed(() => Object.keys(baseI.getUser)?.length === 0 ? false : true)
+const currentUser = computed(() => baseI.getUser)
 const isDesktop = computed(() => windowWidth.value >= 768)
 window.addEventListener('resize', () => {
   windowWidth.value = document.documentElement.clientWidth

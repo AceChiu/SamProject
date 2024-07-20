@@ -5,8 +5,8 @@ import com.ace.dto.UserProfileDto;
 import com.ace.entity.UserProfile;
 import com.ace.service.UserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Objects;
 
 /**
@@ -21,6 +21,27 @@ public class UserProfileController {
     @Autowired
     private UserProfileService userProfileService;
 
+    @GetMapping(value = "/current-user")
+    public UserProfileDto currentUserName(Authentication authentication) {
+        UserProfile userProfile = userProfileService.findByUsername(authentication.getName());
+        return UserProfileDto.builder()
+                .username(userProfile.getUsername())
+                .email(userProfile.getEmail())
+                .name(userProfile.getName())
+                .familyName(userProfile.getFamilyName())
+                .givenName(userProfile.getGivenName())
+                .address(userProfile.getAddress())
+                .birthday(userProfile.getBirthday())
+                .phone(userProfile.getPhone())
+                .build();
+//        Object principal = authentication.getPrincipal();
+//        if (principal instanceof UserDetails) {
+//            return (UserDetails) principal;
+//        } else {
+//            return null;
+//        }
+    }
+
     @GetMapping(value = "/find/username/{username}")
     public UserProfileDto findByUsername(@PathVariable String username) {
         UserProfile userProfile = userProfileService.findByUsername(username);
@@ -28,8 +49,7 @@ public class UserProfileController {
             return UserProfileDto.builder()
                     .username(userProfile.getUsername())
                     .email(userProfile.getEmail())
-                    .name(userProfile.getName())
-                .build();
+                    .name(userProfile.getName()).build();
         } else {
             return null;
         }
@@ -42,8 +62,7 @@ public class UserProfileController {
             return UserProfileDto.builder()
                     .username(userProfile.getUsername())
                     .email(userProfile.getEmail())
-                    .name(userProfile.getName())
-                .build();
+                    .name(userProfile.getName()).build();
         } else {
             return null;
         }
@@ -58,9 +77,8 @@ public class UserProfileController {
                 .name(userProfile.getName())
                 .familyName(userProfile.getFamilyName())
                 .givenName(userProfile.getGivenName())
-                .address(userProfileDto.getAddress())
+                .address(userProfile.getAddress())
                 .birthday(userProfile.getBirthday())
-                .phone(userProfile.getPhone())
-                .build();
+                .phone(userProfile.getPhone()).build();
     }
 }
