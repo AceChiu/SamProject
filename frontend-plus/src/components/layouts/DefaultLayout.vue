@@ -52,10 +52,21 @@ import DefaultHeader from './DefaultHeader.vue'
 }
 .main {
   // background-color: black;
-  background-image:url('../../assets/logo.jpg');
-  background-size: cover;
-  opacity: 0.6;
+  position: relative;
   padding: 32px 24px;
+  &::before {
+    //背景透明度設定
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../assets/logo.jpg');
+    background-size: cover;
+    opacity: 0.6;
+    z-index: -1;
+  }
 }
 .footer {
   background-color: $delta-silver-white;
