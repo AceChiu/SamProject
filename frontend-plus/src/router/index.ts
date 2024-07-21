@@ -19,6 +19,11 @@ const baseI = base(pinia)
 const routes: RouteRecordRaw[] = [
   { path: '/', redirect: '/home' },
   { path: '/home', name: 'home', component: () => import('../views/Home.vue') },
+  {
+    path: '/user-profile',
+    name: 'user-profile',
+    component: () => import('../views/UserProfile.vue')
+  },
   { path: '/info', name: 'in-fo', component: () => import('../views/Info.vue') },
   {
     path: '/demo1/tableDemo',
