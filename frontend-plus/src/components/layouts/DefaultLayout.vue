@@ -1,15 +1,10 @@
 <template>
   <div>
     <el-container class="layout">
-      <!-- <el-aside class="aside" width="auto">
-        <DesktopAsideMenu></DesktopAsideMenu>
-        <MobileAsideMenu></MobileAsideMenu>
-      </el-aside> -->
       <el-container class="layout-container">
         <el-header class="header">
           <DefaultHeader />
         </el-header>
-        <!-- <NavigationHeader></NavigationHeader> -->
         <el-container class="layout-container__main">
           <el-main class="main" id="main">
             <slot />
@@ -24,9 +19,6 @@
 </template>
 <script setup lang="ts">
 import DefaultHeader from './DefaultHeader.vue'
-// import DesktopAsideMenu from '~/components/layouts/DesktopAsideMenu.vue'
-// import MobileAsideMenu from '~/components/layouts/MobileAsideMenu.vue'
-// import NavigationHeader from '~/components/layouts/NavigationHeader.vue'
 </script>
 <style lang="scss" scoped>
 .layout {

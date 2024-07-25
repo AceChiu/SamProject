@@ -15,11 +15,11 @@
       :ellipsis="false"
       active-text-color="#473e02"
     >
-      <el-menu-item index="1">首頁</el-menu-item>
-      <el-menu-item index="2">個人資料</el-menu-item>
-      <el-menu-item index="3">任務</el-menu-item>
-      <el-menu-item index="4">課程</el-menu-item>
-      <el-menu-item index="5">關於我們</el-menu-item>
+      <el-menu-item index="home">首頁</el-menu-item>
+      <el-menu-item index="user-profile">個人資料</el-menu-item>
+      <el-menu-item index="task">任務</el-menu-item>
+      <el-menu-item index="course">課程</el-menu-item>
+      <el-menu-item index="about">關於我們</el-menu-item>
     </el-menu>
 
     <!-- 手機上的展開頁面 -->
@@ -33,11 +33,11 @@
         :ellipsis="false"
         active-text-color="#473e02"
       >
-        <el-menu-item index="1">首頁</el-menu-item>
-        <el-menu-item index="2">個人資料</el-menu-item>
-        <el-menu-item index="3">任務</el-menu-item>
-        <el-menu-item index="4">課程</el-menu-item>
-        <el-menu-item index="5">關於我們</el-menu-item>
+        <el-menu-item index="home">首頁</el-menu-item>
+        <el-menu-item index="user-profile">個人資料</el-menu-item>
+        <el-menu-item index="task">任務</el-menu-item>
+        <el-menu-item index="course">課程</el-menu-item>
+        <el-menu-item index="about">關於我們</el-menu-item>
       </el-menu>
     </div>
   </div>
@@ -45,11 +45,13 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+const $router = useRouter()
 
-const activeIndex = ref('1')
+const activeIndex = ref('home')
 const isCollapsed = ref(false)
-const handleSelect = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
+const handleSelect = (key: string) => {
+  $router.push({ name: key })
 }
 const toggleMenu = () => {
   isCollapsed.value = !isCollapsed.value
