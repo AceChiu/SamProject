@@ -25,8 +25,7 @@
 <script setup lang="ts">
 import DefaultHeader from './DefaultHeader.vue'
 // import DesktopAsideMenu from '~/components/layouts/DesktopAsideMenu.vue'
-// import MobileAsideMenu from '~/components/layouts/MobileAsideMenu.vue'
-// import NavigationHeader from '~/components/layouts/NavigationHeader.vue'
+ㄏ
 </script>
 <style lang="scss" scoped>
 .layout {

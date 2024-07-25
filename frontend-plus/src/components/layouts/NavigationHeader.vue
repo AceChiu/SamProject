@@ -1,68 +1,26 @@
 <template>
   <el-menu
     :default-active="activeIndex"
-    class="navigation-header"
+    class="el-menu-demo"
     mode="horizontal"
+    background-color="#545c64"
+    text-color="#fff"
+    active-text-color="#ffd04b"
+    :ellipsis="false"
     @select="handleSelect"
   >
-    <el-sub-menu index="1">
-      <template #title>
-        <span>Navigator One</span>
-      </template>
-      <el-menu-item-group title="Group One">
-        <el-menu-item index="1-1">item one</el-menu-item>
-        <el-menu-item index="1-2">item two</el-menu-item>
-      </el-menu-item-group>
-      <el-menu-item-group title="Group Two">
-        <el-menu-item index="1-3">item three</el-menu-item>
-      </el-menu-item-group>
-      <el-sub-menu index="1-4">
-        <template #title>item four</template>
-        <el-menu-item index="1-4-1">item one</el-menu-item>
-      </el-sub-menu>
-    </el-sub-menu>
-    <el-sub-menu index="2">
-      <template #title>
-        <span>Navigator Two</span>
-      </template>
-      <el-menu-item-group title="Group One">
-        <el-menu-item index="1-1">item one</el-menu-item>
-        <el-menu-item index="1-2">item two</el-menu-item>
-      </el-menu-item-group>
-      <el-menu-item-group title="Group Two">
-        <el-menu-item index="1-3">item three</el-menu-item>
-      </el-menu-item-group>
-      <el-sub-menu index="1-4">
-        <template #title>item four</template>
-        <el-menu-item index="1-4-1">item one</el-menu-item>
-      </el-sub-menu>
-    </el-sub-menu>
-    <el-sub-menu index="3">
-      <template #title>
-        <span>Navigator Three</span>
-      </template>
-      <el-menu-item-group title="Group One">
-        <el-menu-item index="1-1">item one</el-menu-item>
-        <el-menu-item index="1-2">item two</el-menu-item>
-      </el-menu-item-group>
-      <el-menu-item-group title="Group Two">
-        <el-menu-item index="1-3">item three</el-menu-item>
-      </el-menu-item-group>
-      <el-sub-menu index="1-4">
-        <template #title>item four</template>
-        <el-menu-item index="1-4-1">item one</el-menu-item>
-      </el-sub-menu>
-    </el-sub-menu>
-    <el-menu-item index="4">
-      <span>Navigator Four</span>
-    </el-menu-item>
+    <el-menu-item index="home">首頁</el-menu-item>
+    <el-menu-item index="user-profile">個人資料</el-menu-item>
   </el-menu>
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-const activeIndex = ref('1')
-const handleSelect = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
+const $router = useRouter()
+const activeIndex = ref('home')
+
+const handleSelect = (key: string) => {
+  $router.push({ name: key })
 }
 </script>
