@@ -2,22 +2,15 @@
   <div class="default-header">
     <div class="default-header__left">
       <NavigationHeader></NavigationHeader>
-      <a
-        class="default-header__left-title default-header__center-title"
-        @click="$router.push({ name: 'home' })"
-      >
-      </a>
     </div>
 
     <div class="default-header__right">
-      <!-- <DropdownLocal></DropdownLocal> -->
       <DropdownUser></DropdownUser>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-// import DropdownLocal from '~/components/layouts/DropdownLocal.vue'
-import DropdownUser from '~/components/layouts/DropdownUser.vue'
+import DropdownUser from './DropdownUser.vue'
 import NavigationHeader from './NavigationHeader.vue'
 </script>
 <style lang="scss" scoped>
