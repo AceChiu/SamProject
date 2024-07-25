@@ -1,6 +1,7 @@
 <template>
   <div class="default-header">
     <div class="default-header__left">
+      <NavigationHeader></NavigationHeader>
       <!-- <el-icon
         v-show="!baseStore.menuOpen"
         class="default-header__hamburger"
@@ -33,6 +34,7 @@
 <script setup lang="ts">
 // import DropdownLocal from '~/components/layouts/DropdownLocal.vue'
 import DropdownUser from '~/components/layouts/DropdownUser.vue'
+import NavigationHeader from './NavigationHeader.vue'
 // import { Expand, Fold } from '@element-plus/icons-vue'
 // import { base } from '../../store/base'
 //
