@@ -25,5 +25,3 @@ app.use(vue3GoogleLogin, {
   clientId: '429767660564-5hum32kmibduum3ep3ia83ec3p49tgnn.apps.googleusercontent.com'
 })
 app.mount('#app')
-
-//rebase testing master 2
