@@ -55,12 +55,18 @@ import pinia from '../store/store'
 import { base } from '../store/base'
 import { defineComponent } from 'vue'
 import { postUpdateUser } from '../util/api/user-profile'
+import { ElNotification } from 'element-plus'
 const baseI = base(pinia)
 const currentUser = baseI.getUser
 function saveUser() {
   postUpdateUser(currentUser).then((response: any) => {
     if (response.data) {
       console.log(response.data)
+      ElNotification({
+        title: '更新完成',
+        message: response.data.username + '更新完成',
+        type: 'success'
+      })
     }
   })
 }
