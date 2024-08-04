@@ -1,5 +1,5 @@
 <template>
-  <div clase="home-padding">
+  <div class="home-padding">
     <div class="two-side-home">
       <div class="panel">
         <h2 class="title" color="yellow">個人資料</h2>
@@ -15,6 +15,7 @@
             <span class="label" style="width: 200px; margin-right: 5px">Email</span>
             <el-input
               v-model="currentUser.username"
+              type="email"
               placeholder="Enter something"
               readonly
             ></el-input>
@@ -52,15 +53,74 @@
     </div>
   </div>
 </template>
+
 <script setup lang="ts">
 import pinia from '../store/store'
 import { base } from '../store/base'
 import { defineComponent } from 'vue'
 import { postUpdateUser } from '../util/api/user-profile'
 import { ElNotification } from 'element-plus'
+
 const baseI = base(pinia)
 const currentUser = baseI.getUser
+
+function validatePhone() {
+  const phone = currentUser.phone
+  const mobilePattern = /^09\d{8}$/
+  const landlinePattern = /^(?:02|03|037|039|04|049|05|06|07|08|089)\d{7,8}$/
+
+  if (!phone) {
+    return false
+  }
+  if (phone.startsWith('09')) {
+    if (!mobilePattern.test(phone)) {
+      ElNotification({
+        title: '電話格式錯誤',
+        message: '請輸入正確的手機號碼，例如：09xxxxxxxx',
+        type: 'warning'
+      })
+      return false
+    }
+  } else if (!landlinePattern.test(phone)) {
+    ElNotification({
+      title: '電話格式錯誤',
+      message: '請輸入正確的市話號碼，例如：02xxxxxxxx',
+      type: 'warning'
+    })
+    return false
+  }
+  ElNotification({
+    title: '電話格式正確',
+    message: '電話格式正確',
+    type: 'success'
+  })
+  return true
+}
+
+function validateAddress() {
+  const address = currentUser.address
+  const addressPattern = /^[\u4e00-\u9fa5a-zA-Z0-9\s,.'-]{10,}$/
+
+  if (!addressPattern.test(address)) {
+    ElNotification({
+      title: '地址格式錯誤',
+      message: '請輸入正確的地址',
+      type: 'warning'
+    })
+    return false
+  }
+  ElNotification({
+    title: '地址格式正確',
+    message: '地址格式正確',
+    type: 'success'
+  })
+  return true
+}
 function saveUser() {
+  if (!validatePhone() || !validateAddress()) {
+    return
+  }
+
   postUpdateUser(currentUser).then((response: any) => {
     if (response.data) {
       console.log(response.data)
@@ -77,6 +137,7 @@ defineComponent({
   name: 'UserProfileView'
 })
 </script>
+
 <style lang="scss">
 .home-padding {
   padding: 100px;
