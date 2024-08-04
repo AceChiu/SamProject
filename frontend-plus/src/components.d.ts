@@ -14,6 +14,8 @@ declare module '@vue/runtime-core' {
     DragToUpload: typeof import('./components/common/DragToUpload.vue')['default']
     DropdownLocal: typeof import('./components/layouts/DropdownLocal.vue')['default']
     DropdownUser: typeof import('./components/layouts/DropdownUser.vue')['default']
+    ElCarousel: typeof import('element-plus/es')['ElCarousel']
+    ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
     ElCol: typeof import('element-plus/es')['ElCol']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElContainer: typeof import('element-plus/es')['ElContainer']

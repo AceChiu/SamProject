@@ -1,32 +1,51 @@
 body {
-    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    margin: 0;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+    '微软雅黑', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
 }
 a {
-    color: var(--el-color-primary);
+  color: var(--el-color-primary);
 }
 code {
-    border-radius: 2px;
-    padding: 2px 4px;
-    background-color: var(--el-color-primary-light-9);
-    color: var(--el-color-primary);
+  border-radius: 2px;
+  padding: 2px 4px;
+  background-color: var(--el-color-primary-light-9);
+  color: var(--el-color-primary);
 }
 .logo {
-    margin-top: 10px;
-    height: 28px;
+  margin-top: 10px;
+  height: 28px;
 }
 #app {
-    text-align: center;
-    color: var(--el-text-color-primary);
+  text-align: center;
+  color: var(--el-text-color-primary);
 }
 .el-sub-menu__title {
-    font-size:var(--el-font-size-medium)!important;
+  font-size: var(--el-font-size-medium) !important;
 }
-.el-menu-item{
-  font-size:var(--el-font-size-medium)!important;
+.el-menu-item {
+  font-size: var(--el-font-size-medium) !important;
 }
 .el-dropdown-link:focus {
-    outline: none;
+  outline: none;
+}
+
+.two-side-home {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center panels horizontally */
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 5px;
+  text-align: center;
+}
+
+.panel {
+  flex: 1 1 300px; /* Allows panels to grow, shrink, and start at 300px width */
+  margin: 10px; /* Add some spacing between panels */
+  min-width: 250px; /* Minimum width to prevent panels from becoming too small */
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+  text-align: left;
 }

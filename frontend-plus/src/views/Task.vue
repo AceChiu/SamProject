@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="two-side-home">
     <div class="panel">
       <h2 class="title" color="yellow">每日任務</h2>
       <div class="task-buttons">
@@ -134,24 +134,6 @@ defineComponent({
   100% {
     transform: rotate(360deg);
   }
-}
-
-.home {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; /* Center panels horizontally */
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 5px;
-  text-align: center;
-}
-
-.panel {
-  flex: 1 1 300px; /* Allows panels to grow, shrink, and start at 300px width */
-  margin: 10px; /* Add some spacing between panels */
-  min-width: 250px; /* Minimum width to prevent panels from becoming too small */
-  box-sizing: border-box; /* Include padding and border in element's total width and height */
-  text-align: left;
 }
 
 .title {

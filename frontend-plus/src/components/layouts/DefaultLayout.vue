@@ -42,10 +42,11 @@ import DefaultHeader from './DefaultHeader.vue'
   font-size: 16px;
   color: #fff;
 }
+.el-main {
+  padding: 0 !important;
+}
 .main {
-  // background-color: black;
   position: relative;
-  padding: 32px 24px;
   &::before {
     //背景透明度設定
     content: '';
