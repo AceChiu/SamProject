@@ -28,6 +28,7 @@ declare module '@vue/runtime-core' {
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
+    FormUnit: typeof import('./components/layouts/FormUnit.vue')['default']
     ListTable: typeof import('./components/common/ListTable.vue')['default']
     MobileAsideMenu: typeof import('./components/layouts/MobileAsideMenu.vue')['default']
     NavigationHeader: typeof import('./components/layouts/NavigationHeader.vue')['default']

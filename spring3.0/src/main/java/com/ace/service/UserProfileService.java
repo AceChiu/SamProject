@@ -45,6 +45,10 @@ public class UserProfileService extends BasicService<UserProfile> {
     return repository.save(userProfile);
   }
 
+  public UserProfile findById(long id) {
+    return repository.findById(id).orElse(null);
+  }
+
   public UserProfile findByEmail(String email) {
     return repository.findByEmail(email).orElse(null);
   }

@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import user from '../util/interface/user'
 
 export const base = defineStore('base', {
   state: () => {
@@ -6,7 +7,7 @@ export const base = defineStore('base', {
       loading: false,
       login: false,
       language: 'tw',
-      user: Object,
+      user: {} as user,
       menuOpen: false,
       redirectUrl: '',
       token: ''
@@ -30,7 +31,7 @@ export const base = defineStore('base', {
     setLanguage(value: string) {
       this.language = value
     },
-    setUser(value: any) {
+    setUser(value: user) {
       this.user = value
     },
     setRedirectUrl(value: string) {

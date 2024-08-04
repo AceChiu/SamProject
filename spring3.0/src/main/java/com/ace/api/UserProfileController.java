@@ -25,6 +25,7 @@ public class UserProfileController {
     public UserProfileDto currentUserName(Authentication authentication) {
         UserProfile userProfile = userProfileService.findByUsername(authentication.getName());
         return UserProfileDto.builder()
+                .id(userProfile.getId())
                 .username(userProfile.getUsername())
                 .email(userProfile.getEmail())
                 .name(userProfile.getName())
@@ -42,11 +43,26 @@ public class UserProfileController {
 //        }
     }
 
+    @GetMapping(value = "/find/id/{id}")
+    public UserProfileDto findByUsername(@PathVariable long id) {
+        UserProfile userProfile = userProfileService.findById(id);
+        if (Objects.nonNull(userProfile)) {
+            return UserProfileDto.builder()
+                    .id(userProfile.getId())
+                    .username(userProfile.getUsername())
+                    .email(userProfile.getEmail())
+                    .name(userProfile.getName()).build();
+        } else {
+            return null;
+        }
+    }
+
     @GetMapping(value = "/find/username/{username}")
     public UserProfileDto findByUsername(@PathVariable String username) {
         UserProfile userProfile = userProfileService.findByUsername(username);
         if (Objects.nonNull(userProfile)) {
             return UserProfileDto.builder()
+                    .id(userProfile.getId())
                     .username(userProfile.getUsername())
                     .email(userProfile.getEmail())
                     .name(userProfile.getName()).build();
@@ -60,6 +76,7 @@ public class UserProfileController {
         UserProfile userProfile = userProfileService.findByEmail(email);
         if (Objects.nonNull(userProfile)) {
             return UserProfileDto.builder()
+                    .id(userProfile.getId())
                     .username(userProfile.getUsername())
                     .email(userProfile.getEmail())
                     .name(userProfile.getName()).build();
@@ -72,6 +89,7 @@ public class UserProfileController {
     public UserProfileDto update(@RequestBody UserProfileDto userProfileDto) {
         UserProfile userProfile = userProfileService.update(userProfileDto);
         return UserProfileDto.builder()
+                .id(userProfile.getId())
                 .username(userProfile.getUsername())
                 .email(userProfile.getEmail())
                 .name(userProfile.getName())

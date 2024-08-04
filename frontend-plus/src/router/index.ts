@@ -20,6 +20,11 @@ const routes: RouteRecordRaw[] = [
   { path: '/', redirect: '/home' },
   { path: '/home', name: 'home', component: () => import('../views/Home.vue') },
   {
+    path: '/task',
+    name: 'task',
+    component: () => import('../views/Task.vue')
+  },
+  {
     path: '/user-profile',
     name: 'user-profile',
     component: () => import('../views/UserProfile.vue')
@@ -55,18 +60,6 @@ const options: RouterOptions = {
 }
 
 const router: Router = createRouter(options)
-
-// const ValidateDeltaDomain = (url: string) => {
-//   if (
-//     process.env.NODE_ENV.trim() === 'development' ||
-//     process.env.NODE_ENV.trim() === 'production'
-//   ) {
-//     return true
-//   }
-//   const validDomain = process.env.VUE_APP_DOMAIN
-//   const host = new URL(url).hostname
-//   return host === validDomain || host.endsWith('.' + validDomain)
-// }
 
 router.beforeEach((to, from, next) => {
   if (Cookies.get(import.meta.env.VITE_APP_AUTH_TOKEN_NAME)) {
