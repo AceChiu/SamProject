@@ -1,66 +1,103 @@
 <template>
-  <div clase="home-padding">
-    <div class="two-side-home">
-      <div class="panel">
-        <h2 class="title" color="yellow">個人資料</h2>
-        <el-row align="middle" class="inputForm">
-          <el-col :span="24" style="display: flex; align-items: center">
-            <span class="label" style="width: 200px; margin-right: 5px">使用者名稱</span>
-            <el-input v-model="currentUser.name" placeholder="Enter something" readonly></el-input>
-          </el-col>
-        </el-row>
+  <div class="background">
+    <div class="home-padding">
+      <div class="two-side-home">
+        <div class="panel">
+          <h2 class="title" color="yellow">個人資料</h2>
+          <el-row align="middle" class="inputForm">
+            <el-col :span="24" style="display: flex; align-items: center">
+              <span class="label" style="width: 200px; margin-right: 5px">使用者名稱</span>
+              <el-input
+                v-model="currentUser.name"
+                placeholder="Enter something"
+                readonly
+              ></el-input>
+            </el-col>
+          </el-row>
 
-        <el-row align="middle" class="inputForm">
-          <el-col :span="24" style="display: flex; align-items: center">
-            <span class="label" style="width: 200px; margin-right: 5px">Email</span>
-            <el-input
-              v-model="currentUser.username"
-              placeholder="Enter something"
-              readonly
-            ></el-input>
-          </el-col>
-        </el-row>
+          <el-row align="middle" class="inputForm">
+            <el-col :span="24" style="display: flex; align-items: center">
+              <span class="label" style="width: 200px; margin-right: 5px">Email</span>
+              <el-input
+                v-model="currentUser.username"
+                type="email"
+                placeholder="Enter something"
+                readonly
+              ></el-input>
+            </el-col>
+          </el-row>
 
-        <el-row align="middle" class="inputForm">
-          <el-col :span="24" style="display: flex; align-items: center">
-            <span class="label" style="width: 200px; margin-right: 5px">電話</span>
-            <el-input v-model="currentUser.phone"></el-input>
-          </el-col>
-        </el-row>
+          <el-row align="middle" class="inputForm">
+            <el-col :span="24" style="display: flex; align-items: center">
+              <span class="label" style="width: 200px; margin-right: 5px">電話</span>
+              <el-input v-model="currentUser.phone"></el-input>
+            </el-col>
+          </el-row>
 
-        <el-row align="middle" class="inputForm">
-          <el-col :span="24" style="display: flex; align-items: center">
-            <span class="label" style="width: 200px; margin-right: 5px">生日</span>
-            <el-date-picker
-              v-model="currentUser.birthday"
-              type="date"
-              style="height: 40px; width: 100%"
-            />
-          </el-col>
-        </el-row>
+          <el-row align="middle" class="inputForm">
+            <el-col :span="24" style="display: flex; align-items: center">
+              <span class="label" style="width: 200px; margin-right: 5px">生日</span>
+              <el-date-picker
+                v-model="currentUser.birthday"
+                type="date"
+                style="height: 40px; width: 100%"
+              />
+            </el-col>
+          </el-row>
 
-        <el-row align="middle" class="inputForm">
-          <el-col :span="24" style="display: flex; align-items: center">
-            <span class="label" style="width: 200px; margin-right: 5px">地址</span>
-            <el-input v-model="currentUser.address"></el-input>
-          </el-col>
-        </el-row>
-        <button class="button" @click="saveUser">儲存</button>
+          <el-row align="middle" class="inputForm">
+            <el-col :span="24" style="display: flex; align-items: center">
+              <span class="label" style="width: 200px; margin-right: 5px">地址</span>
+              <el-input v-model="currentUser.address"></el-input>
+            </el-col>
+          </el-row>
+          <button class="button" @click="saveUser">儲存</button>
+        </div>
+
+        <div class="panel"></div>
       </div>
-
-      <div class="panel"></div>
     </div>
   </div>
 </template>
+
 <script setup lang="ts">
 import pinia from '../store/store'
+import { validatePhone } from '../util/common'
 import { base } from '../store/base'
 import { defineComponent } from 'vue'
 import { postUpdateUser } from '../util/api/user-profile'
 import { ElNotification } from 'element-plus'
+
 const baseI = base(pinia)
 const currentUser = baseI.getUser
+
+function validateAddress(address: string) {
+  // const address = currentUser.address
+  const addressPattern = /^[\u4e00-\u9fa5a-zA-Z0-9\s,.'-]{10,}$/
+
+  if (!addressPattern.test(address)) {
+    ElNotification({
+      title: '地址格式錯誤',
+      message: '請輸入正確的地址',
+      type: 'warning',
+      offset: 60
+    })
+    return false
+  }
+  ElNotification({
+    title: '地址格式正確',
+    message: '地址格式正確',
+    type: 'success',
+    offset: 60
+  })
+  return true
+}
+
 function saveUser() {
+  if (!validatePhone(currentUser.phone) || !validateAddress(currentUser.address)) {
+    return
+  }
+
   postUpdateUser(currentUser).then((response: any) => {
     if (response.data) {
       console.log(response.data)
@@ -77,7 +114,17 @@ defineComponent({
   name: 'UserProfileView'
 })
 </script>
+
 <style lang="scss">
+.background {
+  background-image: url('../assets/logo.jpg');
+  height: 200vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.6; /* 調整透明度 */
+  z-index: -1;
+}
 .home-padding {
   padding: 100px;
 }
