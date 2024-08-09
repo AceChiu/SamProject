@@ -5,6 +5,9 @@
         <img :src="getImageSrc(image)" alt="Carousel Image" class="carousel-image" />
       </el-carousel-item>
     </el-carousel>
+    <div class="background-container">
+      <img src="../assets/logo.jpg" class="background" />
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -43,5 +46,20 @@ defineComponent({
 
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
+}
+
+.background-container {
+  position: relative;
+  height: 150vh;
+  width: 100%;
+}
+
+.background {
+  height: 100%;
+  width: 100%;
+  object-fit: cover; /* 確保圖片覆蓋整個容器 */
+  background-size: cover;
+  background-position: center;
+  opacity: 0.6; /* 調整透明度 */
 }
 </style>

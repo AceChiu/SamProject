@@ -1,53 +1,55 @@
 <template>
-  <div class="two-side-home">
-    <div class="panel">
-      <h2 class="title" color="yellow">每日任務</h2>
-      <div class="task-buttons">
-        <button v-for="(task, index) in dailyTasks" :key="index" class="task-button">
-          {{ task }}
-        </button>
-      </div>
-      <button
-        class="button"
-        @click="spinDailyWheel"
-        :disabled="dailyTasks.length < 4 || dailySpinning"
-      >
-        抽任務
-      </button>
-      <transition name="fade">
-        <div v-if="dailySpinning" class="overlay">
-          <div class="spinner"></div>
+  <div class="background">
+    <div class="two-side-home">
+      <div class="panel">
+        <h2 class="title" color="yellow">每日任務</h2>
+        <div class="task-buttons">
+          <button v-for="(task, index) in dailyTasks" :key="index" class="task-button">
+            {{ task }}
+          </button>
         </div>
-      </transition>
-      <div class="task-buttons">
-        <button v-for="(task, index) in selectedDailyTasks" :key="index" class="task-button">
-          {{ task }}
+        <button
+          class="button"
+          @click="spinDailyWheel"
+          :disabled="dailyTasks.length < 4 || dailySpinning"
+        >
+          抽任務
         </button>
-      </div>
-    </div>
-    <div class="panel">
-      <h2 class="title" color="yellow">每週任務</h2>
-      <div class="task-buttons">
-        <button v-for="(task, index) in weeklyTasks" :key="index" class="task-button">
-          {{ task }}
-        </button>
-      </div>
-      <button
-        class="button"
-        @click="spinWeeklyWheel"
-        :disabled="weeklyTasks.length < 4 || weeklySpinning"
-      >
-        抽任務
-      </button>
-      <transition name="fade">
-        <div v-if="weeklySpinning" class="overlay">
-          <div class="spinner"></div>
+        <transition name="fade">
+          <div v-if="dailySpinning" class="overlay">
+            <div class="spinner"></div>
+          </div>
+        </transition>
+        <div class="task-buttons">
+          <button v-for="(task, index) in selectedDailyTasks" :key="index" class="task-button">
+            {{ task }}
+          </button>
         </div>
-      </transition>
-      <div class="task-buttons">
-        <button v-for="(task, index) in selectedWeeklyTasks" :key="index" class="task-button">
-          {{ task }}
+      </div>
+      <div class="panel">
+        <h2 class="title" color="yellow">每週任務</h2>
+        <div class="task-buttons">
+          <button v-for="(task, index) in weeklyTasks" :key="index" class="task-button">
+            {{ task }}
+          </button>
+        </div>
+        <button
+          class="button"
+          @click="spinWeeklyWheel"
+          :disabled="weeklyTasks.length < 4 || weeklySpinning"
+        >
+          抽任務
         </button>
+        <transition name="fade">
+          <div v-if="weeklySpinning" class="overlay">
+            <div class="spinner"></div>
+          </div>
+        </transition>
+        <div class="task-buttons">
+          <button v-for="(task, index) in selectedWeeklyTasks" :key="index" class="task-button">
+            {{ task }}
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -93,6 +95,15 @@ defineComponent({
 })
 </script>
 <style lang="scss">
+.background {
+  background-image: url('../assets/logo.jpg');
+  height: 200vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.6; /* 調整透明度 */
+  z-index: -1;
+}
 .overlay {
   position: fixed;
   top: 0;
