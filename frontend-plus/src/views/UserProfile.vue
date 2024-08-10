@@ -34,6 +34,29 @@
             </el-col>
           </el-row>
 
+          <!-- Switch 按鈕和手機號碼輸入框同一行 -->
+          <el-row align="middle" class="inputForm">
+            <el-col :span="24" style="display: flex; align-items: center">
+              <span class="label" style="width: 70px; margin-right: 55px">手機</span>
+              <el-switch
+                v-model="hasMobile"
+                style="
+                  margin-left: 0;
+                  --el-switch-on-color: #13ce66;
+                  --el-switch-off-color: #c0c0c0;
+                "
+              ></el-switch>
+              <el-input
+                v-model="currentUser.mobile"
+                :disabled="!hasMobile"
+                placeholder="手機號碼"
+                style="margin-left: 10px; flex-grow: 1"
+              ></el-input>
+
+              <!-- 手機號碼輸入框 v-model="currentUser.phone"-->
+            </el-col>
+          </el-row>
+
           <el-row align="middle" class="inputForm">
             <el-col :span="24" style="display: flex; align-items: center">
               <span class="label" style="width: 200px; margin-right: 5px">生日</span>
@@ -48,9 +71,23 @@
           <el-row align="middle" class="inputForm">
             <el-col :span="24" style="display: flex; align-items: center">
               <span class="label" style="width: 200px; margin-right: 5px">地址</span>
-              <el-input v-model="currentUser.address"></el-input>
+              <div class="twzipcode"></div>
+              <!-- 這是我們要放入 TWzipcode 的地方 -->
             </el-col>
           </el-row>
+
+          <el-row align="middle" class="inputForm">
+            <el-col :span="24" style="display: flex; align-items: center">
+              <span class="label" style="width: 200px; margin-right: 5px">街道地址</span>
+              <el-input
+                v-model="currentUser.address"
+                placeholder="請輸入地址詳細資訊"
+                class="input-with-select"
+              >
+              </el-input>
+            </el-col>
+          </el-row>
+
           <button class="button" @click="saveUser">儲存</button>
         </div>
 
@@ -62,39 +99,50 @@
 
 <script setup lang="ts">
 import pinia from '../store/store'
-import { validatePhone } from '../util/common'
+import { validatePhone, validateAddress, validateMobile } from '../util/common'
 import { base } from '../store/base'
-import { defineComponent } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
 import { postUpdateUser } from '../util/api/user-profile'
 import { ElNotification } from 'element-plus'
+// @ts-ignore
+import TWzipcode from 'twzipcode.js' // 引入 twzipcode.js
 
 const baseI = base(pinia)
 const currentUser = baseI.getUser
 
-function validateAddress(address: string) {
-  // const address = currentUser.address
-  const addressPattern = /^[\u4e00-\u9fa5a-zA-Z0-9\s,.'-]{10,}$/
+// 定義 switch 的狀態
+const hasMobile = ref(false)
 
-  if (!addressPattern.test(address)) {
-    ElNotification({
-      title: '地址格式錯誤',
-      message: '請輸入正確的地址',
-      type: 'warning',
-      offset: 60
-    })
-    return false
-  }
-  ElNotification({
-    title: '地址格式正確',
-    message: '地址格式正確',
-    type: 'success',
-    offset: 60
+onMounted(() => {
+  // 初始化 TWzipcode 並使用它
+  const twzipcode = new TWzipcode('.twzipcode', {
+    combine: false, // 是否將郵遞區號併入鄉鎮市區清單
+    county: {
+      name: 'city', // 縣市 select name 屬性
+      label: '請選擇縣市',
+      value: '臺北市', // 預設選擇的縣市
+      css: ['county', 'form-control'] // 自定義縣市 select 樣式
+    },
+    district: {
+      name: 'district', // 鄉鎮 select name 屬性
+      label: '請選擇鄉鎮',
+      value: '大安區' // 預設選擇的鄉鎮
+    },
+    zipcode: false,
+    address: false
   })
-  return true
-}
+
+  // 例如：獲取選中的值並打印
+  const selectedData = twzipcode.get()
+  console.log('選擇的縣市:', selectedData.county)
+  console.log('選擇的鄉鎮:', selectedData.district)
+})
 
 function saveUser() {
   if (!validatePhone(currentUser.phone) || !validateAddress(currentUser.address)) {
+    return
+  }
+  if (hasMobile.value && !validateMobile(currentUser.mobile)) {
     return
   }
 
@@ -167,5 +215,20 @@ defineComponent({
   font-size: 1.5rem;
   margin-top: 20px;
   margin-bottom: 10px;
+}
+
+.twzipcode {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.twzipcode select {
+  width: 100%; /* 调整选单宽度以填满父容器 */
+  height: 40px; /* 与输入框的高度一致 */
+  font-size: 22px; /* 调整文字大小以与输入框一致 */
+  padding: 0 10px; /* 添加内边距以使内容更有空间 */
+  box-sizing: border-box; /* 确保 padding 不会影响元素的总宽度 */
+  // margin-right: 10px; /* 使两个 select 元素之间有一定的间距 */
 }
 </style>

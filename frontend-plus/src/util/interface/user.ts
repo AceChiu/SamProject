@@ -11,6 +11,7 @@ interface user {
 
   birthday: Date
   phone: string
+  mobile: string //add
   address: string
 }
 export default user
