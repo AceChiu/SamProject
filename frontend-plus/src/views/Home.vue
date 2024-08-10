@@ -5,9 +5,7 @@
         <img :src="getImageSrc(image)" alt="Carousel Image" class="carousel-image" />
       </el-carousel-item>
     </el-carousel>
-    <div class="background-container">
-      <img src="../assets/logo.jpg" class="background" />
-    </div>
+    <div class="background-home"></div>
   </div>
 </template>
 <script setup lang="ts">

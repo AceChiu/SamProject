@@ -95,15 +95,6 @@ defineComponent({
 })
 </script>
 <style lang="scss">
-.background {
-  background-image: url('../assets/logo.jpg');
-  height: 200vh;
-  width: 100%;
-  background-size: cover;
-  background-position: center;
-  opacity: 0.6; /* 調整透明度 */
-  z-index: -1;
-}
 .overlay {
   position: fixed;
   top: 0;
@@ -149,7 +140,7 @@ defineComponent({
 
 .title {
   font-size: 2.5rem;
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
 }
 
 .button {

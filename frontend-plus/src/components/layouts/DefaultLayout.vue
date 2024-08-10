@@ -6,7 +6,7 @@
           <DefaultHeader />
         </el-header>
         <el-container class="layout-container__main">
-          <el-main class="main" id="main">
+          <el-main>
             <slot />
           </el-main>
           <el-footer class="footer"
@@ -45,22 +45,6 @@ import DefaultHeader from './DefaultHeader.vue'
 .el-main {
   padding: 0 !important;
 }
-// .main {
-//   position: relative;
-//   &::before {
-//     //背景透明度設定
-//     content: '';
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     width: 100%;
-//     height: 100%;
-//     background-image: url('../../assets/logo.jpg');
-//     background-size: cover;
-//     opacity: 0.6;
-//     z-index: -1;
-//   }
-// }
 .footer {
   background-color: $delta-silver-white;
   height: unset;
