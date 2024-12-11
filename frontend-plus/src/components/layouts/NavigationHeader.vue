@@ -80,6 +80,11 @@ const toggleMenu = () => {
   --el-menu-hover-text-color: #e2dede;
 }
 
+.el-sub-menu {
+  color: #473e02; /* 默認顏色與其他按鈕一致 */
+  --el-menu-hover-text-color: #e2dede;
+}
+
 /* 手機和小螢幕樣式 */
 @media (max-width: 767.98px) {
   .navigation-header {

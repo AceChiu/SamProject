@@ -63,6 +63,8 @@ code {
     background-image: url('../assets/logo.jpg');
     background-size: cover;
     background-position: center;
+    margin: 0;
+    padding: 50px 0; /* 可根據需求調整上下內邊距 */
     opacity: 0.6;
     z-index: -1;
   }
