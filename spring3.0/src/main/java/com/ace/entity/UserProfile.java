@@ -46,12 +46,9 @@ public class UserProfile extends BaseEntity implements UserDetails {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = Teacher_.USER_PROFILE)
     private Teacher teacher;
 
-    // many to many will create a middle table, we don't want to use default, so we use Join Column setting it.
+    // many to many will create a middle table, we use to default middle table
     @Getter
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Role> roles = new ArrayList<>();
 
     @Override

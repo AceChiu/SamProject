@@ -1,6 +1,8 @@
 package com.ace.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +16,6 @@ import java.util.List;
 public class Role extends BaseEntity {
     private String name;
 
-    @ManyToMany(mappedBy = Role_.ID) // 指向 `User` 端的 `roles` 屬性
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = UserProfile_.ROLES)
     private List<UserProfile> users = new ArrayList<>();
 }
