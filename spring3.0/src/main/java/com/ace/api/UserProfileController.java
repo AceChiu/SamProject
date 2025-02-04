@@ -7,6 +7,7 @@ import com.ace.service.UserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.Objects;
 
 /**
@@ -60,20 +61,6 @@ public class UserProfileController {
     @GetMapping(value = "/find/username/{username}")
     public UserProfileDto findByUsername(@PathVariable String username) {
         UserProfile userProfile = userProfileService.findByUsername(username);
-        if (Objects.nonNull(userProfile)) {
-            return UserProfileDto.builder()
-                    .id(userProfile.getId())
-                    .username(userProfile.getUsername())
-                    .email(userProfile.getEmail())
-                    .name(userProfile.getName()).build();
-        } else {
-            return null;
-        }
-    }
-
-    @GetMapping(value = "/find/email/{email}")
-    public UserProfileDto findByEmail(@PathVariable String email) {
-        UserProfile userProfile = userProfileService.findByEmail(email);
         if (Objects.nonNull(userProfile)) {
             return UserProfileDto.builder()
                     .id(userProfile.getId())

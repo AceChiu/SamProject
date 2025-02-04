@@ -6,5 +6,6 @@ public class ResourcePaths {
   public static final String USER_PROFILE = "user-profile";
   public static final String TEACHER = "teacher";
   public static final String COURSE = "course";
+  public static final String ROLE = "role";
 
 }

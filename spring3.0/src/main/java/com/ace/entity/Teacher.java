@@ -15,6 +15,7 @@ import java.util.List;
 public class Teacher extends BaseEntity {
   private static final long serialVersionUID = -66606257433452604L;
 
+  // setting join column don't create middle table
   @Getter
   @Setter
   @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
