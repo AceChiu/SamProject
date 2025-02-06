@@ -1,9 +1,9 @@
 package com.ace.api;
 
 import com.ace.common.ResourcePaths;
-import com.ace.entity.Teacher;
-import com.ace.request.TeacherDtoRequest;
-import com.ace.service.TeacherService;
+import com.ace.entity.Role;
+import com.ace.request.RoleDtoRequest;
+import com.ace.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,23 +12,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author: ACE.CHIU
- * @create: 2022-08-16
+ * @create: 2025-02-04
  */
 
 @RestController
-@RequestMapping("/api/" + ResourcePaths.TEACHER)
-public class TeacherController {
+@RequestMapping("/api/" + ResourcePaths.ROLE)
+public class RoleController {
 
     @Autowired
-    private TeacherService teacherService;
+    private RoleService roleService;
 
     @PostMapping(value = "/create")
-    public Teacher create(@RequestBody TeacherDtoRequest request) {
-        return teacherService.create(request);
+    public Role create(@RequestBody RoleDtoRequest request) {
+        return roleService.create(request);
     }
 
     @PostMapping(value = "/update")
-    public Teacher update(@RequestBody TeacherDtoRequest request) {
-        return teacherService.update(request);
+    public Role update(@RequestBody RoleDtoRequest request) {
+        return roleService.update(request);
     }
 }

@@ -10,7 +10,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TeacherDtoRequest {
-  
+  private String username;
+
   private String googleId;
   private String email;
   private String uuid;

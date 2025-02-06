@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -14,30 +15,30 @@ import java.util.Optional;
  */
 public abstract class BasicService<T> {
 
-  public abstract BasicJpaRepository<T> getRepository();
+    public abstract BasicJpaRepository<T> getRepository();
 
-  @Transactional
-  public T save(T entity) {
-    return getRepository().save(entity);
-  }
+    @Transactional
+    public T save(T entity) {
+        return getRepository().save(entity);
+    }
 
-  public T findOne(String id) {
-    Optional<T> opt = getRepository().findByUuid(id);
+    public T findOne(String uuid) {
+        Optional<T> opt = getRepository().findByUuid(uuid);
 
-    return opt.orElse(null);
-  }
+        return opt.orElse(null);
+    }
 
-  public List<T> findAll() {
-    return getRepository().findAll();
-  }
+    public List<T> findAll() {
+        return getRepository().findAll();
+    }
 
-  public List<T> findAll(Sort sort) {
-    return getRepository().findAll(sort);
-  }
+    public List<T> findAll(Sort sort) {
+        return getRepository().findAll(sort);
+    }
 
-  public Page<T> findAll(Pageable pageable) {
-    return getRepository().findAll(pageable);
-  }
+    public Page<T> findAll(Pageable pageable) {
+        return getRepository().findAll(pageable);
+    }
 
 //  public Page<T> findAll(List<SearchCriteria> params, PreCriteriaBuilder preCriteriaBuilder, Pageable pageable) {
 //    return getRepository().findAll((root, query, builder) -> {
@@ -59,24 +60,24 @@ public abstract class BasicService<T> {
 //    }, pageable);
 //  }
 
-  public long count() {
-    return getRepository().count();
-  }
-
-  @Transactional
-  public boolean delete(String id) {
-    Optional<T> entity = getRepository().findByUuid(id);
-    if (entity.isPresent()) {
-      getRepository().delete(entity.get());
-      return true;
-    } else {
-      return false;
+    public long count() {
+        return getRepository().count();
     }
-  }
 
-  @Transactional
-  public List<T> saveAll(Iterable<T> list) {
-    return getRepository().saveAll(list);
-  }
+    @Transactional
+    public boolean delete(String uuid) {
+        Optional<T> entity = getRepository().findByUuid(uuid);
+        if (entity.isPresent()) {
+            getRepository().delete(entity.get());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Transactional
+    public List<T> saveAll(Iterable<T> list) {
+        return getRepository().saveAll(list);
+    }
 }
 

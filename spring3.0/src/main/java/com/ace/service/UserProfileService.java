@@ -49,10 +49,6 @@ public class UserProfileService extends BasicService<UserProfile> {
     return repository.findById(id).orElse(null);
   }
 
-  public UserProfile findByEmail(String email) {
-    return repository.findByEmail(email).orElse(null);
-  }
-
   public UserProfile findByUsername(String username) {
     return repository.findByUsername(username).orElse(null);
   }
