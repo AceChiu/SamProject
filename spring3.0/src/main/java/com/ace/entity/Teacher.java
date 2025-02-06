@@ -20,7 +20,7 @@ public class Teacher extends BaseEntity {
 
     // setting join column don't create middle table
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = UserProfile_.ID, unique = true, nullable = false)
+    @JoinColumn(name = "user_id", unique = true, nullable = false)
     private UserProfile userProfile;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = Course_.TEACHER)

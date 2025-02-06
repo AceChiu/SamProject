@@ -20,7 +20,7 @@ public class Student extends BaseEntity {
     private static final long serialVersionUID = 1651345380729541023L;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = UserProfile_.ID, unique = true)
+    @JoinColumn(name = "user_id", unique = true)
     private UserProfile userProfile;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

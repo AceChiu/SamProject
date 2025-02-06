@@ -20,7 +20,7 @@ public class Course extends BaseEntity {
   private static final long serialVersionUID = -5103435175697067139L;
 
   @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = Teacher_.ID, unique = true, nullable = false)
+  @JoinColumn(name = "teacher_id", unique = true, nullable = false)
   private Teacher teacher;
 
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = Student_.COURSES)

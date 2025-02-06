@@ -47,7 +47,6 @@ public class UserProfile extends BaseEntity implements UserDetails {
     private Teacher teacher;
 
     // many to many will create a middle table, we use to default middle table
-    @Getter
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Role> roles = new ArrayList<>();
 

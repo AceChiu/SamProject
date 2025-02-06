@@ -7,6 +7,7 @@ import com.ace.repository.BasicJpaRepository;
 import com.ace.repository.RoleRepository;
 import com.ace.request.RoleDtoRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +17,7 @@ import java.util.Optional;
  * @create: 2025-02-04
  */
 
+@Service
 public class RoleService extends BasicService<Role> {
     @Autowired
     private RoleRepository repository;
