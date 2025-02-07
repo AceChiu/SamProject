@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * @author: ACE.CHIU
  * @create: 2022-06-30
@@ -25,4 +27,5 @@ public class UserProfileDto {
     private String birthday;
     private String phone;
     private String address;
+    private List<String> roleNames;
 }

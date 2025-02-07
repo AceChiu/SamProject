@@ -8,7 +8,6 @@ import com.ace.entity.UserProfile;
 import com.ace.repository.RoleRepository;
 import com.ace.security.JWTGenerator;
 import com.ace.service.UserProfileService;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
