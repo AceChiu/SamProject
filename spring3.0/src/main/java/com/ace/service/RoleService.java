@@ -9,6 +9,7 @@ import com.ace.request.RoleDtoRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,36 +31,29 @@ public class RoleService extends BasicService<Role> {
         return repository;
     }
 
-    public Role create(RoleDtoRequest request) {
-        Optional<Role> roleOpt = repository.findByName(request.getName());
+    public Role create(String name) {
+        Optional<Role> roleOpt = repository.findByName(name.toUpperCase());
         if (roleOpt.isPresent()) {
-            throw new BusinessException("This Role is existed, Name: " + request.getName());
+            throw new BusinessException("This Role is existed, Name: " + name.toUpperCase());
         }
         Role role = new Role();
-        role.setName(request.getName());
-        request.getUsernames().forEach(username -> {
-            UserProfile userProfile = userProfileService.findByUsername(username);
-            if (userProfile != null) {
-                role.getUsers().add(userProfile);
-            }
-        });
+        role.setName(name.toUpperCase());
         return repository.save(role);
     }
 
-    public Role update(RoleDtoRequest request) {
-        Optional<Role> roleOpt = repository.findByName(request.getName());
+    public void update(String name, RoleDtoRequest request) {
+        Optional<Role> roleOpt = repository.findByName(name.toUpperCase());
         if (roleOpt.isPresent()) {
-            throw new BusinessException("This Role is existed, Name: " + request.getName());
+            List<UserProfile> users = new ArrayList<>();
+            request.getUsernames().forEach(username -> {
+                UserProfile userProfile = userProfileService.findByUsername(username);
+                userProfile.getRoles().add(roleOpt.get());
+                users.add(userProfile);
+            });
+            userProfileService.saveAll(users);
+        } else {
+            throw new BusinessException("This Role is existed, Name: " + name.toUpperCase());
         }
-        Role role = new Role();
-        role.setName(request.getName());
-        request.getUsernames().forEach(username -> {
-            UserProfile userProfile = userProfileService.findByUsername(username);
-            if (userProfile != null) {
-                role.getUsers().add(userProfile);
-            }
-        });
-        return repository.save(role);
     }
 
     public List<Role> getRoles() {

@@ -177,15 +177,6 @@
                     <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
-            <!--			<plugin>-->
-            <!--				<groupId>org.springframework.boot</groupId>-->
-            <!--				<artifactId>spring-boot-maven-plugin</artifactId>-->
-            <!--				<configuration>-->
-            <!--					<compilerArguments>-->
-            <!--						<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>-->
-            <!--                    </compilerArguments>-->
-            <!--				</configuration>-->
-            <!--			</plugin>-->
         </plugins>
     </build>
 

@@ -16,6 +16,6 @@ import java.util.List;
 public class Role extends BaseEntity {
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = UserProfile_.ROLES)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = UserProfile_.ROLES)
     private List<UserProfile> users = new ArrayList<>();
 }

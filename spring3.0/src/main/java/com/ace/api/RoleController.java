@@ -5,10 +5,8 @@ import com.ace.entity.Role;
 import com.ace.request.RoleDtoRequest;
 import com.ace.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author: ACE.CHIU
@@ -22,13 +20,15 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    @PostMapping(value = "/create")
-    public Role create(@RequestBody RoleDtoRequest request) {
-        return roleService.create(request);
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping(value = "/create/{name}")
+    public Role create(@PathVariable String name) {
+        return roleService.create(name);
     }
 
-    @PostMapping(value = "/update")
-    public Role update(@RequestBody RoleDtoRequest request) {
-        return roleService.update(request);
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping(value = "/update/{name}")
+    public void update(@PathVariable String name, @RequestBody RoleDtoRequest request) {
+        roleService.update(name, request);
     }
 }

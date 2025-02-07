@@ -1,14 +1,18 @@
 package com.ace.api;
 
 import com.ace.common.ResourcePaths;
+import com.ace.dto.RoleDto;
 import com.ace.dto.UserProfileDto;
+import com.ace.entity.Role;
 import com.ace.entity.UserProfile;
 import com.ace.service.UserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author: ACE.CHIU
@@ -25,7 +29,7 @@ public class UserProfileController {
     @GetMapping(value = "/current-user")
     public UserProfileDto currentUserName(Authentication authentication) {
         UserProfile userProfile = userProfileService.findByUsername(authentication.getName());
-        return UserProfileDto.builder()
+        UserProfileDto dto = UserProfileDto.builder()
                 .id(userProfile.getId())
                 .username(userProfile.getUsername())
                 .email(userProfile.getEmail())
@@ -35,13 +39,9 @@ public class UserProfileController {
                 .address(userProfile.getAddress())
                 .birthday(userProfile.getBirthday())
                 .phone(userProfile.getPhone())
+                .roleNames(userProfile.getRoles().stream().map(Role::getName).collect(Collectors.toList()))
                 .build();
-//        Object principal = authentication.getPrincipal();
-//        if (principal instanceof UserDetails) {
-//            return (UserDetails) principal;
-//        } else {
-//            return null;
-//        }
+        return dto;
     }
 
     @GetMapping(value = "/find/id/{id}")

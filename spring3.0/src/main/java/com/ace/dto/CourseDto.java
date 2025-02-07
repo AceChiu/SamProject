@@ -1,5 +1,6 @@
 package com.ace.dto;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
  * @create: 2023-03-23
  */
 @Data
+@Builder
 public class CourseDto {
   private long id;
   private String imgUrl;
