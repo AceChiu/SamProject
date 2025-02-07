@@ -5,6 +5,7 @@ import com.ace.entity.Teacher;
 import com.ace.request.TeacherDtoRequest;
 import com.ace.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,11 +23,13 @@ public class TeacherController {
     @Autowired
     private TeacherService teacherService;
 
+    @PreAuthorize("hasAuthority('USER')")
     @PostMapping(value = "/create")
     public Teacher create(@RequestBody TeacherDtoRequest request) {
         return teacherService.create(request);
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     @PostMapping(value = "/update")
     public Teacher update(@RequestBody TeacherDtoRequest request) {
         return teacherService.update(request);
