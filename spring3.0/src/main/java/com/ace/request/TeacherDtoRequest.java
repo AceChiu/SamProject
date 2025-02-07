@@ -1,16 +1,15 @@
 package com.ace.request;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * @author: ACE.CHIU
  * @create: 2023-03-19
  */
-@Getter
-@Setter
+@Data
 public class TeacherDtoRequest {
-  
+  private String username;
+
   private String googleId;
   private String email;
   private String uuid;

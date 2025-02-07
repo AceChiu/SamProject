@@ -4,6 +4,7 @@ import com.ace.entity.Role;
 import com.ace.entity.UserProfile;
 import com.ace.repository.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -19,16 +20,18 @@ import java.util.stream.Collectors;
 @Service
 public class CustomUserDetailService implements UserDetailsService {
 
+    @Lazy
     @Autowired
     public UserProfileRepository userProfileRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserProfile userProfile = userProfileRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Authentication Error"));
+        UserProfile userProfile = userProfileRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
         return new User(userProfile.getUsername(), userProfile.getPassword(), mapRolesToAuthorities(userProfile.getRoles()));
     }
 
     private Collection<GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
-        return roles.stream().map(role ->  new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 }

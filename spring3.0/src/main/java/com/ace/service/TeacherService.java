@@ -31,7 +31,15 @@ public class TeacherService extends BasicService<Teacher> {
   }
   
   public Teacher create(TeacherDtoRequest request) {
-    UserProfile userProfile = userProfileService.findByEmail(request.getEmail());
+    UserProfile userProfile = userProfileService.findByUsername(request.getUsername());
+    if (userProfile == null) {
+      throw new BusinessException("This user is not existed, username: " + request.getUsername());
+    }
+
+    Optional<Teacher> teacherOpt = repository.findByUserProfile(userProfile);
+    if (teacherOpt.isPresent()) {
+      throw new BusinessException("This teacher is existed, Email: " + request.getEmail());
+    }
     Teacher teacher = new Teacher();
     teacher.setUserProfile(userProfile);
     teacher.setImgUrl(request.getImgUrl());
@@ -39,10 +47,15 @@ public class TeacherService extends BasicService<Teacher> {
   }
   
   public Teacher update(TeacherDtoRequest request) {
-    Optional<Teacher> teacherOpt = repository.findByUuid(request.getUuid());
+    UserProfile userProfile = userProfileService.findByUsername(request.getUsername());
+    if (userProfile == null) {
+      throw new BusinessException("This user is not existed, username: " + request.getUsername());
+    }
+
+    Optional<Teacher> teacherOpt = repository.findByUserProfile(userProfile);
     if (!teacherOpt.isPresent()) {
-      throw new BusinessException("Teacher Could not Find");
-    } 
+      throw new BusinessException("This teacher is not existed, Email: " + request.getEmail());
+    }
     Teacher teacher = teacherOpt.get();
     teacher.setImgUrl(request.getImgUrl());
     return repository.save(teacher);

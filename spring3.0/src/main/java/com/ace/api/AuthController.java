@@ -17,7 +17,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.Objects;
 
 @RestController
@@ -33,6 +32,7 @@ public class AuthController {
     @Autowired
     private JWTGenerator jwtGenerator;
 
+    // email, lindId, facebookId... will be set to username, it's unique
     @GetMapping(value = "/isExistUser/{username}")
     public boolean isExistedUser(@PathVariable String username) {
         UserProfile userProfile = userProfileService.findByUsername(username);
