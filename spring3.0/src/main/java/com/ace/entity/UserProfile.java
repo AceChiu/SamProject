@@ -50,6 +50,7 @@ public class UserProfile extends BaseEntity implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles = new ArrayList<>();
 
+    // spring security authority setting
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
