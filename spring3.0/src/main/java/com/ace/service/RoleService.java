@@ -31,6 +31,10 @@ public class RoleService extends BasicService<Role> {
         return repository;
     }
 
+    public Role findByName(String name) {
+        return repository.findByName(name.toUpperCase()).orElse(null);
+    }
+
     public Role create(String name) {
         Optional<Role> roleOpt = repository.findByName(name.toUpperCase());
         if (roleOpt.isPresent()) {

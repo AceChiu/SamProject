@@ -20,25 +20,39 @@ const routes: RouteRecordRaw[] = [
   { path: '/', redirect: '/home' },
   { path: '/home', name: 'home', component: () => import('../views/Home.vue') },
   {
-    path: '/task',
-    name: 'task',
-    component: () => import('../views/Task.vue')
-  },
-  {
     path: '/user-profile',
     name: 'user-profile',
     component: () => import('../views/UserProfile.vue')
   },
-  { path: '/info', name: 'in-fo', component: () => import('../views/Info.vue') },
   {
-    path: '/demo1/tableDemo',
-    name: 'DEMO1_TABLEDEMO',
-    component: () => import('../views/TableDemo.vue')
+    path: '/task-view',
+    name: 'task-view',
+    component: () => import('../views/TaskView.vue')
   },
   {
-    path: '/demo2/fileUploaderDemo',
-    name: 'DEMO2_FILEUPLOADERDEMO',
-    component: () => import('../views/FileUploaderDemo.vue')
+    path: '/course-required',
+    name: 'course-required',
+    component: () => import('../views/CourseRequired.vue')
+  },
+  {
+    path: '/course-elective',
+    name: 'course-elective',
+    component: () => import('../views/CourseElective.vue')
+  },
+  {
+    path: '/system-task',
+    name: 'system-task',
+    component: () => import('../views/SystemTask.vue')
+  },
+  {
+    path: '/system-course',
+    name: 'system-course',
+    component: () => import('../views/SystemCourse.vue')
+  },
+  {
+    path: '/about-us',
+    name: 'about-us',
+    component: () => import('../views/AboutUs.vue')
   },
   { path: '/:pathMatch(.*)*', name: 'Error', component: () => import('../views/ErrorPage.vue') }
 ]
