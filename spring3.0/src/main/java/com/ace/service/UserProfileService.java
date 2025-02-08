@@ -1,9 +1,11 @@
 package com.ace.service;
 
 import com.ace.dto.UserProfileDto;
+import com.ace.entity.Role;
 import com.ace.entity.UserProfile;
 import com.ace.exception.BusinessException;
 import com.ace.repository.BasicJpaRepository;
+import com.ace.repository.RoleRepository;
 import com.ace.repository.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,10 +23,14 @@ import java.util.Optional;
 @Service
 public class UserProfileService extends BasicService<UserProfile> {
 
+  private static final String USER = "USER";
+  private static final String ADMIN = "ADMIN";
   @Autowired
   private UserProfileRepository repository;
   @Autowired
   private PasswordEncoder passwordEncoder;
+  @Autowired
+  private RoleRepository roleRepository;
 
   public UserProfile create(UserProfileDto dto) {
     UserProfile userProfile = new UserProfile();
@@ -35,6 +41,19 @@ public class UserProfileService extends BasicService<UserProfile> {
     userProfile.setFamilyName(dto.getFamilyName());
     userProfile.setGivenName(dto.getGivenName());
     userProfile.setName(dto.getName());
+    Optional<Role> roleOpt = roleRepository.findByName(USER);
+    if (!roleOpt.isPresent()) {
+        Role role = new Role();
+        role.setName(USER);
+        role = roleRepository.save(role);
+        userProfile.getRoles().add(role);
+        role = new Role();
+        role.setName(ADMIN);
+        role = roleRepository.save(role);
+        userProfile.getRoles().add(role);
+    } else {
+      userProfile.getRoles().add(roleOpt.get());
+    }
     return repository.save(userProfile);
   }
   

@@ -211,7 +211,7 @@ defineComponent({
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: black;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -267,26 +267,7 @@ defineComponent({
 .button:hover {
   background-color: #45a049;
 }
-
-.subtitle {
-  font-size: 1.5rem;
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
-.task-container {
-  margin-top: 30px;
-}
-
-.task-box {
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 20px;
-  font-size: 1.2rem;
-  margin-top: 10px;
-}
-
+ 
 .task-buttons {
   padding-top: 10px;
   display: flex;

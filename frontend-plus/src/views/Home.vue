@@ -5,7 +5,7 @@
             <img :src="getImageSrc(image)" alt="Carousel Image" class="carousel-image" />
           </el-carousel-item>
         </el-carousel>
-        <div class="background-home">
+        <div class="background">
           <div class="section-title">
             <h2>人生必修課</h2>
             <div class="square-container">

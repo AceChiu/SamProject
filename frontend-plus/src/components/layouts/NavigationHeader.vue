@@ -17,13 +17,18 @@
     >
       <el-menu-item index="home">首頁</el-menu-item>
       <el-menu-item index="user-profile">個人資料</el-menu-item>
-      <el-menu-item index="task">任務</el-menu-item>
-      <el-sub-menu index="2-4">
+      <el-menu-item index="task-view">任務</el-menu-item>
+      <el-sub-menu index="course">
         <template #title>課程</template>
-        <el-menu-item index="2-4-1">人生必修課</el-menu-item>
-        <el-menu-item index="2-4-2">人生選修課</el-menu-item>
+        <el-menu-item index="course-required">人生必修課</el-menu-item>
+        <el-menu-item index="course-elective">人生選修課</el-menu-item>
       </el-sub-menu>
-      <el-menu-item index="about">關於我們</el-menu-item>
+      <el-sub-menu index="system">
+        <template #title>系統管理</template>
+        <el-menu-item index="system-task">任務管理</el-menu-item>
+        <el-menu-item index="system-course">課程管理</el-menu-item>
+      </el-sub-menu>
+      <el-menu-item index="about-us">關於我們</el-menu-item>
     </el-menu>
 
     <!-- 手機上的展開頁面 -->
@@ -39,13 +44,18 @@
       >
         <el-menu-item index="home">首頁</el-menu-item>
         <el-menu-item index="user-profile">個人資料</el-menu-item>
-        <el-menu-item index="task">任務</el-menu-item>
-        <el-sub-menu index="2-4">
+        <el-menu-item index="task-view">任務</el-menu-item>
+        <el-sub-menu index="course">
           <template #title>課程</template>
-          <el-menu-item index="2-4-1">人生必修課</el-menu-item>
-          <el-menu-item index="2-4-2">人生選修課</el-menu-item>
+          <el-menu-item index="course-required">人生必修課</el-menu-item>
+          <el-menu-item index="course-elective">人生選修課</el-menu-item>
         </el-sub-menu>
-        <el-menu-item index="about">關於我們</el-menu-item>
+        <el-sub-menu index="system">
+          <template #title>系統管理</template>
+          <el-menu-item index="system-task">任務管理</el-menu-item>
+          <el-menu-item index="system-course">課程管理</el-menu-item>
+        </el-sub-menu>
+        <el-menu-item index="about-us">關於我們</el-menu-item>
       </el-menu>
     </div>
   </div>
