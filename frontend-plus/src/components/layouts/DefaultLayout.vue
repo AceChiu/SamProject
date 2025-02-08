@@ -22,10 +22,10 @@ import DefaultHeader from './DefaultHeader.vue'
 </script>
 <style lang="scss" scoped>
 .layout {
-  height: 200vh;
+  height: 100vh;
 }
 .layout-container {
-  height: 200vh;
+  height: 100vh;
   &__main {
     overflow-y: auto;
   }
