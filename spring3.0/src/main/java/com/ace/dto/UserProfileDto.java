@@ -1,5 +1,7 @@
 package com.ace.dto;
 
+import com.ace.entity.UserProfile;
+import com.ace.request.UserProfileDtoRequest;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -26,6 +28,7 @@ public class UserProfileDto {
 
     private String birthday;
     private String phone;
+    private String cellPhone;
     private String address;
     private List<String> roleNames;
 }

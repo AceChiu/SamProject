@@ -5,6 +5,7 @@ import com.ace.dto.RoleDto;
 import com.ace.dto.UserProfileDto;
 import com.ace.entity.Role;
 import com.ace.entity.UserProfile;
+import com.ace.request.UserProfileDtoRequest;
 import com.ace.service.UserProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -73,7 +74,7 @@ public class UserProfileController {
     }
 
     @PostMapping(value = "/update")
-    public UserProfileDto update(@RequestBody UserProfileDto userProfileDto) {
+    public UserProfileDto update(@RequestBody UserProfileDtoRequest userProfileDto) {
         UserProfile userProfile = userProfileService.update(userProfileDto);
         return UserProfileDto.builder()
                 .id(userProfile.getId())
@@ -84,6 +85,8 @@ public class UserProfileController {
                 .givenName(userProfile.getGivenName())
                 .address(userProfile.getAddress())
                 .birthday(userProfile.getBirthday())
-                .phone(userProfile.getPhone()).build();
+                .phone(userProfile.getPhone())
+                .cellPhone(userProfile.getCellPhone())
+                .build();
     }
 }

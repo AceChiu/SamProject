@@ -7,6 +7,7 @@ import com.ace.exception.BusinessException;
 import com.ace.repository.BasicJpaRepository;
 import com.ace.repository.RoleRepository;
 import com.ace.repository.UserProfileRepository;
+import com.ace.request.UserProfileDtoRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -57,12 +58,17 @@ public class UserProfileService extends BasicService<UserProfile> {
     return repository.save(userProfile);
   }
   
-  public UserProfile update(UserProfileDto userProfileDto) {
-    UserProfile userProfile = repository.findById(userProfileDto.getId()).orElseThrow();
-    userProfile.setBirthday(userProfileDto.getBirthday());
-    userProfile.setAddress(userProfileDto.getAddress());
-    userProfile.setPhone(userProfileDto.getPhone());
-    return repository.save(userProfile);
+  public UserProfile update(UserProfileDtoRequest request) {
+    Optional<UserProfile> userProfileOpt = repository.findByUsername(request.getUsername());
+    if (userProfileOpt.isPresent()) {
+      UserProfile userProfile = userProfileOpt.get();
+      userProfile.setBirthday(request.getBirthday());
+      userProfile.setAddress(request.getAddress());
+      userProfile.setPhone(request.getPhone());
+      return repository.save(userProfile);
+    } else {
+      throw new BusinessException("This user is not existed, username: " + request.getUsername());
+    }
   }
 
   public UserProfile findById(long id) {

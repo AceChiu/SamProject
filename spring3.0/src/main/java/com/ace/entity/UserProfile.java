@@ -38,6 +38,7 @@ public class UserProfile extends BaseEntity implements UserDetails {
 
     private String birthday;
     private String phone;
+    private String cellPhone;
     private String address;
 
     // setting mappedBy, user profile also could access student and teacher
