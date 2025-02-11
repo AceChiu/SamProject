@@ -38,7 +38,7 @@ public class TeacherService extends BasicService<Teacher> {
 
     Optional<Teacher> teacherOpt = repository.findByUserProfile(userProfile);
     if (teacherOpt.isPresent()) {
-      throw new BusinessException("This teacher is existed, Email: " + request.getEmail());
+      throw new BusinessException("This teacher is existed, username: " + request.getUsername());
     }
     Teacher teacher = new Teacher();
     teacher.setUserProfile(userProfile);
@@ -54,7 +54,7 @@ public class TeacherService extends BasicService<Teacher> {
 
     Optional<Teacher> teacherOpt = repository.findByUserProfile(userProfile);
     if (!teacherOpt.isPresent()) {
-      throw new BusinessException("This teacher is not existed, Email: " + request.getEmail());
+      throw new BusinessException("This teacher is not existed, username: " + request.getUsername());
     }
     Teacher teacher = teacherOpt.get();
     teacher.setImgUrl(request.getImgUrl());

@@ -1,7 +1,6 @@
 package com.ace.api;
 
 import com.ace.common.ResourcePaths;
-import com.ace.dto.RoleDto;
 import com.ace.dto.UserProfileDto;
 import com.ace.entity.Role;
 import com.ace.entity.UserProfile;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.stream.Collectors;
 

@@ -28,7 +28,7 @@ public class AuthController {
     @Autowired
     private UserProfileService userProfileService;
     @Autowired
-    private RoleRepository roleRepository;
+    private RoleRepositoåry roleRepository;
     @Autowired
     private JWTGenerator jwtGenerator;
 

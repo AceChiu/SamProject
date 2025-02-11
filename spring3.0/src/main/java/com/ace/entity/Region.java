@@ -19,5 +19,4 @@ public class Region extends BaseEntity {
   @Getter
   @Setter
   private String district;
-  
 }

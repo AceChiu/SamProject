@@ -1,6 +1,9 @@
 package com.ace.request;
 
+import com.ace.common.ClarifyEnum;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * @author: ACE.CHIU
@@ -8,12 +11,13 @@ import lombok.Data;
  */
 @Data
 public class TeacherDtoRequest {
-  private String username;
+    private String username;
 
-  private String googleId;
-  private String email;
-  private String uuid;
-  private String imgUrl;
-  private String skill;
-  private String experience;
-}
+    private String imgUrl;
+    private String selfIntroduction;
+    private String partOfCompany;
+    private String suitAgeFrom;
+    private String suitAgeTo;
+    private List<String> labelNames;
+    private ClarifyEnum clarify;
+ }

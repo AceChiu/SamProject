@@ -23,16 +23,18 @@ public class Student extends BaseEntity {
     @JoinColumn(name = "user_id", unique = true)
     private UserProfile userProfile;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = DailyTask_.STUDENT)
+    private List<DailyTask> dailyTasks;
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Course> courses;
 
     private String school;
-
     private String guardianName;
-
     private String guardianPhone;
-
     private String guardianEmail;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "region_id", unique = true, nullable = false)
     private Region region;
 }
